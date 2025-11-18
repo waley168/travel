@@ -2,7 +2,7 @@
   "name": "濟州島 5天4夜行程",
   "short_name": "濟州行程",
   "description": "我們的濟州島旅遊行程規劃",
-  "start_url": "./jeju_trip_pwa.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fdfdfd",
   "theme_color": "#D35400",
