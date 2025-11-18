@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我們的濟州島 5 天 4 夜行程</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+
+    <style>
+        :root {
+            --color-primary: #D35400; 
+            --color-secondary: #E67E22; 
+            --color-bg: #fdfdfd; 
+            --color-card-bg: #ffffff;
+            --color-text: #212529; 
+            --color-text-light: #555;
+            --color-border: #eaeaea;
+            --color-tip-bg: #FFF3E0; 
+            --color-tip-border: #D35400;
+            --color-tip-text: #8D2B00;
+            --color-warning-bg: #FDF5E6;
+            --color-warning-border: #E67E22;
+            --color-warning-text: #D35400;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: "Noto Serif TC", "Songti TC", "LiSong Pro", "STSong", "AR PL UMing CN", serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.8; 
+            margin: 0;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .mdi {
+            vertical-align: -0.125em;
+            margin-right: 6px;
+        }
+
+        .mdi-inline {
+            font-size: 1.2em;
+        }
+
+        .mdi-naver {
+            font-size: 1em;
+            margin-left: 6px;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-start; 
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        header h1 {
+            color: var(--color-primary);
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--color-border);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            color: var(--color-primary);
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            list-style: none;
+        }
+        
+        .card li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start; /* 改為 align-start 以容納多行 */
+            font-size: 1.1em;
+        }
+        .card li .mdi {
+            color: var(--color-primary);
+            margin-top: 5px; /* 讓圖標垂直居中 */
+        }
+        .card li div {
+            display: inline-block;
+        }
+
+        #quick-summary .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        #quick-summary .summary-day {
+            background: #fafafa;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        #quick-summary .summary-day strong {
+            color: var(--color-secondary);
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .day-card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .day-card summary {
+            padding: 25px 30px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-card summary::after {
+            content: ''; 
+        }
+
+        .day-card h3 {
+            margin: 0;
+            color: var(--color-secondary);
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+        
+        .day-card summary p {
+            margin: 0;
+            color: var(--color-text-light);
+            font-size: 1.1em;
+        }
+
+        .day-content {
+            padding: 0 30px 30px 30px;
+            border-top: 1px solid var(--color-border);
+        }
+        
+        .day-content img {
+            width: 100%;
+            height: 250px; 
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .pro-tip, .warning {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-style: solid;
+            border-width: 1px 1px 1px 5px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.05em;
+        }
+        .pro-tip .mdi, .warning .mdi {
+            font-size: 1.5em;
+            margin-top: 2px;
+        }
+        .pro-tip {
+            background-color: var(--color-tip-bg);
+            border-color: var(--color-tip-border);
+            color: var(--color-tip-text);
+        }
+        .warning {
+            background-color: var(--color-warning-bg);
+            border-color: var(--color-warning-border);
+            color: var(--color-warning-text);
+        }
+        .pro-tip div, .warning div {
+            flex: 1;
+        }
+
+        .timeline {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .timeline th, .timeline td {
+            padding: 14px 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            vertical-align: top;
+        }
+
+        .timeline th {
+            background-color: #fcfcfc;
+            font-size: 12px;
+            color: var(--color-text-light);
+            text-transform: uppercase;
+            font-family: -apple-system, sans-serif;
+        }
+
+        .timeline td:nth-child(1) { font-weight: 600; width: 70px; }
+        .timeline td:nth-child(2) { width: 35%; }
+        .timeline td:nth-child(3) { width: 12%; }
+        .timeline td:nth-child(4) { width: 12%; } 
+        
+        .timeline a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .timeline a:hover {
+            text-decoration: underline;
+        }
+        
+        .note-orig {
+            font-weight: 600;
+            color: var(--color-text);
+            display: block;
+        }
+        .note-sup {
+            font-size: 0.95em;
+            color: var(--color-text-light);
+            display: block;
+            margin-top: 4px;
+            line-height: 1.6;
+            word-wrap: break-word; /* 確保長 email 換行 */
+        }
+
+        .highlight {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .day-card summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .day-card summary p {
+                font-size: 1em;
+            }
+            .day-card h3 {
+                font-size: 1.6em;
+            }
+            
+            .timeline thead { display: none; }
+            .timeline tr { display: block; margin-bottom: 20px; border: 1px solid var(--color-border); border-radius: 8px; padding: 10px; }
+            .timeline td { display: block; border: none; padding: 6px 10px; }
+            .timeline td:nth-child(1) { font-size: 1.2em; color: var(--color-secondary); } 
+            .timeline td:before {
+                font-weight: 600;
+                color: #555;
+                display: inline-block;
+                width: 80px;
+                font-family: -apple-system, sans-serif; 
+            }
+            .timeline td:nth-child(2):before { content: '活動: '; }
+            .timeline td:nth-child(3):before { content: 'Naver: '; }
+            .timeline td:nth-child(4):before { content: '車程: '; }
+            .timeline td:nth-child(5):before { content: '停留: '; }
+            .timeline td:nth-child(6):before { content: '備註: '; }
+        }
+
+        @media print {
+            body { padding: 0; font-family: "Noto Serif TC", serif; }
+            .card, .day-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                margin-bottom: 15px;
+                padding: 15px;
+            }
+            .day-card { page-break-inside: avoid; }
+            .day-content img, .mdi { display: none; }
+            .timeline { font-size: 10pt; }
+            .timeline th, .timeline td { padding: 8px 5px; }
+            a { text-decoration: none; color: #000; }
+            details { all: initial; } 
+            summary { all: initial; }
+            details[open] { display: block; }
+            .day-card summary { display: block; }
+            .day-card summary h3 { font-size: 1.5em; color: black; }
+            .day-card summary p { display: block; }
+            .day-content { display: block; padding: 0; }
+            .highlight { color: #000; font-weight: 700; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><span class="mdi mdi-airplane-takeoff mdi-inline"></span>我們的濟州島 5 天 4 夜 (達、岱臻、爸、媽)</h1>
+        </header>
+
+        <section class="card" id="core-info">
+            <h2><span class="mdi mdi-format-list-checks mdi-inline"></span>核心資訊</h2>
+            <ul>
+                <li><span class="mdi mdi-account-group"></span><div><strong>人員:</strong> 4 人 (達、岱臻、爸、媽)</div></li>
+                <li><span class="mdi mdi-car"></span>
+                    <div><strong>租車:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Lotte+Rent-a-Car+Jeju+Airport" target="_blank">樂天租車 (Lotte Rent-a-Car)</a>
+                        <span class="note-sup">預訂: CHENWEITA (WEITA622), ohyarin7@gmail.com, maggie171727@</span>
+                        <span class="note-sup">時間: 11/21 11:30 (取) - 11/25 20:00 (還)</span>
+                    </div>
+                </li>
+                <li><span class="mdi mdi-office-building"></span><div><strong>住宿 1 (11/21 - 11/23):</strong> <a href="https://www.google.com/maps/search/?api=1&query=Hotel+RegentMarine+Jeju" target="_blank">Hotel RegentMarine Jeju</a> (Booking)</div></li>
+                <li><span class="mdi mdi-home"></span><div><strong>住宿 2 (11/23 - 11/25):</strong> <a href="https://www.google.com/maps/search/?api=1&query=Seogwipo-si+63571" target="_blank">Seogwipo-si Airbnb</a> (Airbnb)</div></li>
+                <li><span class="mdi mdi-map"></span><div><strong>備用地圖:</strong> <a href="https://my.naver.com/briefing" target="_blank">Naver Map (韓國慣用)</a></div></li>
+            </ul>
+        </section>
+
+        <section class="card" id="quick-summary">
+            <h2><span class="mdi mdi-map mdi-inline"></span>行程總覽 (大綱)</h2>
+            <div class="summary-grid">
+                <div class="summary-day">
+                    <strong>11/21 (五) - 濟州市</strong>
+                    機場取車、市區探索、晚上接機、東門夜市
+                </div>
+                <div class="summary-day">
+                    <strong>11/22 (六) - 濟州東部</strong>
+                    倫敦貝果、咖啡廳、山君不離、城山日出峰、黑豬肉
+                </div>
+                <div class="summary-day">
+                    <strong>11/23 (日) - 跨區移動</strong>
+                    熟成道烤肉、採買、換宿至西歸浦、偶來市場
+                </div>
+                <div class="summary-day">
+                    <strong>11/24 (一) - 西歸浦</strong>
+                    瀑布、射擊場、雪綠茶博物館、海岸景觀
+                </div>
+                <div class="summary-day">
+                    <strong>11/25 (二) - 涯月 & 返途</strong>
+                    上午送機、涯月邑咖啡廳、購物、機場還車
+                </div>
+            </div>
+        </section>
+
+        <section id="detailed-days">
+            <h2 style="margin-left: 5px;"><span class="mdi mdi-calendar mdi-inline"></span>每日詳細行程</h2>
+
+            <details class="day-card" open>
+                <summary>
+                    <h3>Day 1: 11/21 (五) - 濟州市 (Jeju City)</h3>
+                    <p>機場取車、市區探索、晚上接機、東門夜市</p>
+                </summary>
+                <div class="day-content">
+                    <img src="https://images.unsplash.com/photo-1563911555024-7433604816c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODc3MDJ8MHwxfGFsbHx8fHx8fHx8fDE3MzE5MTc4OTh8&ixlib=rb-4.0.3&q=80&w=1000" alt="Jeju Cityscape">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>團長提示 (達)：</strong> 第一天重點是順利取車和安頓。晚上接爸媽前，我們先回飯店 Check-in 放行李會比較輕鬆。Emart 的店休日 (11/22) 已確認，今晚必須先採買。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Lotte+Rent-a-Car+Jeju+Airport" target="_blank">樂天租車</a><a href="https://map.naver.com/v5/search/%EB%A1%AF%EB%8D%B0%EB%A0%8C%ED%84%B0%EC%B9%B4%20%EC%A0%9C%EC%A3%BC%EC%98%A4%ED%86%A0%ED%95%98%EC%9A%B0%EC%8A%A4" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>-</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">機場接駁過去, 當場刷卡</span><span class="note-sup">韓國最大租車公司之一，服務品質優良，車況良好。記得攜帶國際駕照和信用卡。</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Paris+Baguette+Jeju+Airport" target="_blank">Paris Baguette</a><a href="https://map.naver.com/v5/search/%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%9C%ED%8A%B8%20%EC%A0%9C%EC%A3%BC%EA%B3%B5%ED%95%AD" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~10m</td>
+                                <td>15m</td>
+                                <td><span class="note-orig">機場附近, 快速買點心</span><span class="note-sup">韓國連鎖麵包店，橘子塔、可頌和三明治都很受歡迎。</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=자매국수+Jeju" target="_blank">姊妹湯麵</a><a href="https://map.naver.com/v5/search/%EC%9E%90%EB%A7%A4%EA%B5%AD%EC%88%98" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~10m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">14:00-16:00 休息, 16:50 最後點餐</span><span class="note-sup">濟州必吃名店，招牌是고기국수（豬肉湯麵）和비빔국수（拌麵），湯頭濃郁，麵條Q彈，常需排隊30分鐘以上。</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=에귤타르트+이호테우해변점" target="_blank">에귤타르트 (橘子塔)</a><a href="https://map.naver.com/v5/search/%EC%97%90%EA%B7%A4%ED%83%80%EB%A5%B4%ED%8A%B8%20%EC%9D%B4%ED%98%B8%ED%85%8C%EC%9A%B0%ED%95%B4%EB%B3%80%EC%A0%90" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">姊妹附近, 靠海邊的橘子小店</span><span class="note-sup">位於伊湖海邊的橘子塔專賣店，使用濟州新鮮橘子製作，可以邊吃甜點邊欣賞海景和彩虹海岸道路。</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=9.81+Park+Jeju" target="_blank">9.81 Park</a><a href="https://map.naver.com/v5/search/9.81%ED%8C%8C%ED%81%AC" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~30m</td>
+                                <td>2.5hr</td>
+                                <td><span class="note-orig">票在 Klook</span><span class="note-sup">無動力重力賽車主題樂園，利用重力和坡度加速，刺激又安全，適合全家同樂。包含多種賽道和體驗。</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=귤메달+하우스" target="_blank">귤메달 하우스</a><a href="https://map.naver.com/v5/search/%EA%B7%A4%EB%A9%94%EB%8B%AC%20%ED%95%98%EC%9A%B0%EC%8A%A4" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~35m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">橘子汁/橘子店, 飯店旁邊, 11:00-19:00</span><span class="note-sup">100%濟州橘子現榨果汁，可愛的獎牌造型瓶身是人氣拍照道具，還可購買各種橘子相關商品。</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+RegentMarine+Jeju" target="_blank">Hotel RegentMarine</a><a href="https://map.naver.com/v5/search/Hotel%20RegentMarine%20Jeju" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~10m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">Check-in 並稍作休息</span><span class="note-sup">位於濟州市中心的四星級酒店，鄰近東門市場和七星街，地理位置便利。</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jeju+International+Airport" target="_blank">濟州國際機場</a><a href="https://map.naver.com/v5/search/%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~15m</td>
+                                <td>45m</td>
+                                <td><span class="note-orig"><span class="highlight">20:00 接爸媽</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>20:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Dongmun+Traditional+Market+Jeju" target="_blank">東門市場</a><a href="https://map.naver.com/v5/search/%EB%8F%99%EB%AC%B8%EC%9E%AC%EB%9E%98%EC%8B%9C%EC%9E%A5" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~15m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">8號出口是夜市街 18:00-24:00</span><span class="note-sup">濟州最大傳統市場，夜市有各種小吃攤位，必吃橘子、海鮮煎餅、炒年糕等。市場內還有生鮮、乾貨、紀念品等。</span></td>
+                            </tr>
+                            <tr>
+                                <td>22:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Emart+Jeju+Store" target="_blank">Emart (濟州店)</a><a href="https://map.naver.com/v5/search/%EC%9D%B4%EB%A7%88%ED%8A%B8%20%EC%A0%9C%EC%A3%BC%EC%A0%90" target="_blank" class="mdi mdi-map-marker mdi-naver" title="Naver Map"></a></td>
+                                <td>~10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">住宿走路十分鐘超市, 11/22店休, 買葡萄/優酪乳</span><span class="note-sup">韓國最大連鎖超市，可買到濟州特產、零食、飲料等。濟州葡萄特別香甜，韓國優酪乳種類豐富。</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <details class="day-card" open>
+                <summary>
+                    <h3>Day 2: 11/22 (六) - 濟州東部 (East Jeju)</h3>
+                    <p>倫敦貝果、山君不離、城山日出峰、黑豬肉</p>
+                </summary>
+                <div class="day-content">
+                    <img src="https://images.unsplash.com/photo-1622321035100-711c1e9e4b60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODc3MDJ8MHwxfGFsbHx8fHx8fHx8fDE3MzE5MTc5NTh8&ixlib=rb-4.0.3&q=80&w=1000" alt="Jeju Nature">
+                    <div class="warning">
+                        <span class="mdi mdi-alert"></span>
+                        <div><strong>行程警告 (11/22 週六)：</strong>
+                            <ol>
+                                <li>本日行程非常滿，且是週六，熱門景點人潮眾多。</li>
+                                <li><strong>車程極長：</strong> 我們將從濟州市(北) -> 涯月(西) -> 城山(東) -> 咸德(北) -> 濟州市(北)，幾乎環島。</li>
+                                <li><strong>預訂衝突：</strong> 18:30 的「豬舍豬」預訂，按照目前行程**絕對趕不上** (預計 19:30 後才到咸德)。</li>
+                                <li><strong>建議：</strong>
+                                    <ul>
+                                        <li>立即將「豬舍豬」<span class="highlight">改到 20:30</span> 或 21:00。</li>
+                                        <li>「Snoopy Garden」和「城山日出峰」可能需二選一，或都跳過。</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動 (Google Map)</th>
+                                <th>Naver Map</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=London+Bagel+Museum+Jeju" target="_blank">倫敦貝果博物館</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%9F%B0%EB%8D%98%20%EB%B2%A0%EC%9D%B4%EA%B8%80%20%EB%AE%A4%EC%A7%80%EC%97%84%20%EC%A0%9C%EC%A3%BC" target="_blank">Naver</a></td>
+                                <td>~40m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig">35min ride from hotel, catch table抽號碼牌</span><span class="note-sup">超人氣名店，務必一早使用 App 抽號碼牌。</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Cafe+The+Container+Jeju" target="_blank">The container 咖啡廳</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%B9%B4%ED%8E%98%20%EB%8D%94%20%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88" target="_blank">Naver</a></td>
+                                <td>~25m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">橘子咖啡廳/橘子美式/橘子園拍照</span><span class="note-sup">有橘子園景觀的網美咖啡廳。</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:45</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Sangumburi+Crater" target="_blank">山君不離</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%82%B0%EA%B5%B0%EB%B6%80%EB%A6%AC" target="_blank">Naver</a></td>
+                                <td>~30m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">芒草/行程約40min/門票每人7000韓元, 9:00-17:00</span><span class="note-sup">秋季必訪的芒草景點，火山口步道很壯觀。</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:15</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Snoopy+Garden+Jeju" target="_blank">Snoopy Garden</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%8A%A4%EB%88%84%ED%94%BC%EA%B0%80%EB%93%A0" target="_blank">Naver</a></td>
+                                <td>~15m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">時間多的話可去, 紀念品店不用門票, 9:00-18:00</span><span class="note-sup">史努比主題花園，適合拍照。</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Blue+Bottle+Coffee+Jeju" target="_blank">Blue Bottle (濟州店)</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%B8%94%EB%A3%A8%EB%B3%B4%ED%8B%80%20%EC%A0%9C%EC%A3%BC" target="_blank">Naver</a></td>
+                                <td>~30m</td>
+                                <td>45m</td>
+                                <td><span class="note-orig">咖啡廳, 飲料好喝/保溫杯</span><span class="note-sup">獨棟設計的藍瓶咖啡，有濟州限定商品。</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Seongsan+Ilchulbong" target="_blank">城山日出峰</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%84%B1%EC%82%B0%EC%9D%BC%EC%B6%9C%EB%B4%89" target="_blank">Naver</a></td>
+                                <td>~40m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">時間太晚可跳過/票亭前左邊是免費開放的路段/17:20左右日落</span><span class="note-sup">濟州地標，世界自然遺產。</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td>前往咸德海邊</td>
+                                <td>-</td>
+                                <td>~60m</td>
+                                <td>-</td>
+                                <td><span class="note-orig">本日最長車程</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Audrant+Bakery+Jeju" target="_blank">Audrant Bakery</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%98%A4%EB%93%9C%EB%9E%91%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC" target="_blank">Naver</a></td>
+                                <td>-</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">大蒜麵包, 7:00-22:00</span><span class="note-sup">咸德海邊的知名麵包店，大蒜麵包必吃。</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=카페요아정+제주함덕점" target="_blank">카페요아정 優格冰</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%B9%B4%ED%8E%98%EC%9A%94%EC%95%84%EC%A0%95%20%EC%A0%9C%EC%A3%BC%ED%95%A8%EB%8D%95%EC%A0%90" target="_blank">Naver</a></td>
+                                <td>~5m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">17:00-23:40</span><span class="note-sup">在麵包店附近，韓國連鎖優格冰。</span></td>
+                            </tr>
+                            <tr>
+                                <td>20:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Donsadon+Jeju+Main+Store" target="_blank">豬舍豬烤肉</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%8F%88%EC%82%AC%EB%8F%88" target="_blank">Naver</a></td>
+                                <td>~30m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig">豬夾肉 三層肉/定位 18:30 <span class="highlight">(強烈建議改期)</span></span><span class="note-sup">知名的黑豬肉專賣店，有專人代烤服務。</span></td>
+                            </tr>
+                            <tr>
+                                <td>22:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Chilseong-ro+Shopping+Street+Jeju" target="_blank">七星街</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%B9%A0%EC%84%B1%EB%A1%9C%EC%83%81%EC%A0%90%EA%B0%80" target="_blank">Naver</a></td>
+                                <td>~10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">飯後散步</span><span class="note-sup">濟州市的購物街，此時店家多已關門，可純散步。</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+            
+            <details class="day-card" open>
+                <summary>
+                    <h3>Day 3: 11/23 (日) - 濟州 → 西歸浦 (Seogwipo)</h3>
+                    <p>熟成道烤肉、採買、換宿至西歸浦</p>
+                </summary>
+                <div class="day-content">
+                    <img src="https://images.unsplash.com/photo-1610642372651-fe6e7bc618ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODc3MDJ8MHwxfGFsbHx8fHx8fHx8fDE3MzE5MTgwMTh8&ixlib=rb-4.0.3&q=80&w=1000" alt="Jeju Road Trip">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>團長提示 (達)：</strong> 今天是跨區移動日 (北 -> 南)。重點是 12:00 前退房，並在 12:00 準時抵達「熟成道」。下午的行程都在往南的路上，最後到西歸浦的 Airbnb Check-in。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動 (Google Map)</th>
+                                <th>Naver Map</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Dongmun+Traditional+Market+Jeju" target="_blank">東門市場</a> / <a href="https://www.google.com/maps/search/?api=1&query=Chilseong-ro+Shopping+Street+Jeju" target="_blank">七星街</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%8F%99%EB%AC%B8%EC%8B%9C%EC%9E%A5" target="_blank">Naver</a></td>
+                                <td>~5m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">補逛、買紀念品</span><span class="note-sup">早上逛市場有不同風情，七星街是購物街。</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+RegentMarine+Jeju" target="_blank">Hotel RegentMarine</a></td>
+                                <td><a href="https://map.naver.com/v5/search/Hotel%20RegentMarine%20Jeju" target="_blank">Naver</a></td>
+                                <td>~5m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig"><span class="highlight">12:00 前 Check-out (帶行李)</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>11:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Suksungdo+Jeju" target="_blank">숙성도 熟成道烤肉</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%88%99%EC%84%B1%EB%8F%84%20%EB%85%B8%ED%98%95%EB%B3%B8%EC%A0%90" target="_blank">Naver</a></td>
+                                <td>~20m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig"><span class="highlight">定位 12:00</span></span><span class="note-sup">濟州超人氣熟成黑豬肉，準時抵達。</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Jeju" target="_blank">樂天超市 (濟州店)</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%A1%AF%EB%8D%B0%EB%A7%88%ED%8A%B8%20%EC%A0%9C%EC%A3%BC%EC%A0%90" target="_blank">Naver</a></td>
+                                <td>~10m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">採買零食飲料</span><span class="note-sup">為接下來兩天的 Airbnb 住宿補貨。</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=새별프렌즈" target="_blank">새별프렌즈 農場</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%83%88%EB%B3%84%ED%94%84%EB%A0%8C%EC%A6%88" target="_blank">Naver</a></td>
+                                <td>~30m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">門票現場買</span><span class="note-sup">可以餵食草泥馬、小羊等動物的農場。</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=제주당+베이커리" target="_blank">濟州堂 (제주당)</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%A0%9C%EC%A3%BC%EB%8B%B9" target="_blank">Naver</a></td>
+                                <td>~20m</td>
+                                <td>45m</td>
+                                <td><span class="note-orig">牛奶芝麻軟法、橘子汁好吃, 大蒜麵包、肉桂捲普</span><span class="note-sup">麵包店，買點心當隔天早餐。</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Seogwipo+Maeil+Olle+Market" target="_blank">偶來市場</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%84%9C%EA%B7%80%ED%8F%AC%EB%A7%A4%EC%9D%BC%EC%98%AC%EB%A0%88%EC%8B%9C%EC%9E%A5" target="_blank">Naver</a></td>
+                                <td>~50m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">7:00-21:00</span><span class="note-sup">西歸浦最大的市場，買晚餐回 Airbnb 吃。</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Seogwipo-si" target="_blank">Airbnb Check-in</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%A0%9C%EC%A3%BC%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84%20%EC%84%9C%EA%B7%80%ED%8F%AC%EC%8B%9C%2063571" target="_blank">Naver</a></td>
+                                <td>~10m</td>
+                                <td>-</td>
+                                <td><span class="note-orig"><span class="highlight">16:00 後可 Check-in</span></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <details class="day-card" open>
+                <summary>
+                    <h3>Day 4: 11/24 (一) - 西歸浦 (Seogwipo)</h3>
+                    <p>瀑布、射擊場、雪綠茶博物館、海岸景觀</p>
+                </summary>
+                <div class="day-content">
+                    <img src="https://images.unsplash.com/photo-1579169825453-8d4b4654cc68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODc3MDJ8MHwxfGFsbHx8fHx8fHx8fDE3MzE5MTgwNDh8&ixlib=rb-4.0.3&q=80&w=1000" alt="Seogwipo Coast">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>團長提示 (達)：</strong> 今天專心玩西歸浦周邊。景點間車程都不算太長。「龍頭海岸」受潮汐影響，建議出發前查詢當日潮汐表 (Naver Map 可查)，滿潮時會關閉。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動 (Google Map)</th>
+                                <th>Naver Map</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jeongbang+Waterfall" target="_blank">正房瀑布</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%A0%95%EB%B0%A9%ED%8F%AD%ED%8F%AC" target="_blank">Naver</a></td>
+                                <td>~10m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">亞洲唯一直接入海的瀑布。</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=제주실탄사격장" target="_blank">濟州實彈射擊場</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%A0%9C%EC%A3%BC%EC%8B%A4%ED%83%84%EC%82%AC%EA%B2%A9%EC%9E%A5" target="_blank">Naver</a></td>
+                                <td>~15m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">10:00-19:00</span><span class="note-sup">體驗實彈射擊，有教練指導。</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:45</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=만족의+상회+Seogwipo" target="_blank">滿足的商會</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%A7%8C%EC%A1%B1%EC%9D%98%EC%83%81%ED%9A%8C" target="_blank">Naver</a></td>
+                                <td>~20m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">未定位</span><span class="note-sup">以豐盛的海鮮聞名的餐廳。</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:15</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Osulloc+Tea+Museum" target="_blank">雪綠茶博物館</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%98%A4%EC%84%A4%EB%A1%9D%20%ED%8B%B0%EB%AE%A4%EC%A7%80%EC%97%84" target="_blank">Naver</a></td>
+                                <td>~40m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">O'sulloc 綠茶甜點、飲料</span><span class="note-sup">包含旁邊的 Innisfree 玻璃屋，綠茶園很美。</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Yongmeori+Coast" target="_blank">龍頭海岸</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%9A%A9%EB%A8%B8%EB%A6%AC%ED%95%B4%EC%95%88" target="_blank">Naver</a></td>
+                                <td>~20m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">注意潮汐，滿潮關閉</span><span class="note-sup">沙岩海岸，地形奇特，需要走樓梯。</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:15</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jusangjeolli+Cliff+Jeju" target="_blank">柱狀節理帶</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%A3%BC%EC%83%81%EC%A0%88%EB%A6%AC%EB%8C%80" target="_blank">Naver</a></td>
+                                <td>~25m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">火山熔岩形成的六角形石柱</span><span class="note-sup">門票 2000 KRW，是很特別的地質景觀。</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=BHC+Chicken+Seogwipo" target="_blank">BHC 炸雞</a></td>
+                                <td><a href="https://map.naver.com/v5/search/BHC%EC%B9%98%ED%82%A8%20%EC%84%9C%EA%B7%80%ED%8F%AC%EC%A0%90" target="_blank">Naver</a></td>
+                                <td>~20m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">有骨 macho king</span><span class="note-sup">外帶晚餐回 Airbnb 享受。</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+            
+            <details class="day-card" open>
+                <summary>
+                    <h3>Day 5: 11/25 (二) - 涯月 & 返途</h3>
+                    <p>上午送機、涯月邑咖啡廳、購物、機場還車</p>
+                </summary>
+                <div class="day-content">
+                    <img src="https://images.unsplash.com/photo-1594323671239-010d8a25a2f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODc3MDJ8MHwxfGFsbHx8fHx8fHx8fDE3MzE5MTgxMTl8&ixlib=rb-4.0.3&q=80&w=1000" alt="Jeju Cafe Aewol">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>團長提示 (達)：</strong> 今天是返途日。一早要從西歸浦(南)開車到機場(北)，車程很長 (約 1-1.5 小時)，請務必提早出發。送機後，達和岱臻的行程都在機場附近，比較輕鬆。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動 (Google Map)</th>
+                                <th>Naver Map</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>07:30</td>
+                                <td>Airbnb Check-out</td>
+                                <td>-</td>
+                                <td>~70m</td>
+                                <td>-</td>
+                                <td><span class="note-orig">帶上所有行李, 本日最長車程</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jeju+International+Airport" target="_blank">濟州國際機場</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD" target="_blank">Naver</a></td>
+                                <td>-</td>
+                                <td>30m</td>
+                                <td><span class="note-orig"><span class="highlight">09:00 送爸媽到機場</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>09:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=PPEUM+Clinic+Jeju" target="_blank">PPEUM (제주점)</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%BF%94%ED%81%B4%EB%A6%AC%EB%8B%89%20%EC%A0%9C%EC%A3%BC%EC%A0%90" target="_blank">Naver</a></td>
+                                <td>~15m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig"><span class="highlight">預約 10:00</span></span><span class="note-sup">達和岱臻的行程。</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Aewol-eup" target="_blank">涯月邑</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%95%A0%EC%9B%94%EC%9D%8D" target="_blank">Naver</a></td>
+                                <td>~40m</td>
+                                <td>2.5hr</td>
+                                <td><span class="note-orig">看海/咖啡廳</span><span class="note-sup">濟州最美的海岸咖啡廳聚集地。</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:45</td>
+                                <td>逛街 (二選一)</td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%8B%A0%EB%9D%BC%EB%A9%B4%EC%84%B8%EC%A0%90%20%EC%A0%9C%EC%A3%BC%EC%A0%90" target="_blank">Naver</a></td>
+                                <td>~30m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig">免稅店 or 步行街/買伴手禮</span><span class="note-sup">新羅免稅店或蓮洞步行街。</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=식당+마요네즈+Jeju" target="_blank">식당 마요네즈</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EC%8B%9D%EB%8B%B9%20%EB%A7%88%EC%9A%94%EB%84%A4%EC%A6%88" target="_blank">Naver</a></td>
+                                <td>~10m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">炸豬排義大利麵</span><span class="note-sup">提早吃晚餐。</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td>最後採買 / 空檔</td>
+                                <td>-</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">可去附近的 Lotte Mart</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:00</td>
+                                <td>加油</td>
+                                <td>-</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">還車前需加滿油</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Lotte+Rent-a-Car+Jeju+Airport" target="_blank">樂天租車</a></td>
+                                <td><a href="https://map.naver.com/v5/search/%EB%A1%AF%EB%8D%B0%EB%A0%8C%ED%84%B0%EC%B9%B4%20%EC%A0%9C%EC%A3%BC%EC%98%A4%ED%86%A0%ED%95%98%EC%9A%B0%EC%8A%A4" target="_blank">Naver</a></td>
+                                <td>~10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig"><span class="highlight">20:00 機場還車</span></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </section>
+
+    </div>
+
+</body>
+</html>

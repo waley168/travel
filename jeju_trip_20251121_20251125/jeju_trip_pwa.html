@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#D35400">
+    <meta name="description" content="我們的濟州島5天4夜旅遊行程規劃">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="濟州行程">
+    
+    <title>濟州島 5天4夜行程</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    
+    <!-- 圖示 -->
+    <link rel="apple-touch-icon" href="./images/seongsan.jpg">
+    <link rel="icon" type="image/png" href="./images/seongsan.jpg">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+
+    <style>
+        :root {
+            --color-primary: #D35400;
+            --color-secondary: #E67E22;
+            --color-bg: #fdfdfd;
+            --color-card-bg: #ffffff;
+            --color-text: #212529;
+            --color-text-light: #555;
+            --color-border: #eaeaea;
+            --color-tip-bg: #FFF3E0;
+            --color-tip-border: #D35400;
+            --color-tip-text: #8D2B00;
+            --color-warning-bg: #FDF5E6;
+            --color-warning-border: #E67E22;
+            --color-warning-text: #D35400;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --border-radius: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Serif TC", "Songti TC", "LiSong Pro", "STSong", "AR PL UMing CN", serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.75;
+            margin: 0;
+            padding: 10px;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        /* PWA 安裝提示 */
+        .install-prompt {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+        }
+
+        .install-prompt.hidden {
+            display: none;
+        }
+
+        .install-prompt-text {
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .install-prompt-text strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .install-prompt-text small {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+
+        .install-btn {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .install-btn:active {
+            transform: scale(0.95);
+        }
+
+        .close-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        /* 離線狀態提示 */
+        .offline-indicator {
+            background: #555;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: none;
+        }
+
+        .offline-indicator.show {
+            display: block;
+        }
+
+        .mdi {
+            vertical-align: -0.125em;
+            margin-right: 6px;
+        }
+
+        .mdi-inline {
+            font-size: 1.2em;
+        }
+
+        .mdi-naver {
+            font-size: 1.3em;
+            margin-left: 8px;
+            margin-right: 0;
+            color: #03C75A;
+            text-decoration: none;
+            opacity: 0.85;
+            transition: all 0.2s;
+            padding: 4px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .mdi-naver:hover {
+            opacity: 1;
+            background-color: rgba(3, 199, 90, 0.1);
+            transform: scale(1.1);
+        }
+
+        .naver-icon {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            margin-left: 8px;
+            vertical-align: -5px;
+            opacity: 0.85;
+            transition: all 0.25s;
+            padding: 3px;
+            border-radius: 4px;
+        }
+
+        .naver-icon:hover {
+            opacity: 1;
+            transform: scale(1.2);
+            background-color: rgba(3, 199, 90, 0.1);
+        }
+
+        .naver-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        header h1 {
+            color: var(--color-primary);
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--color-border);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            color: var(--color-primary);
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            list-style: none;
+        }
+
+        .card li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1em;
+        }
+        .card li .mdi {
+            color: var(--color-primary);
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+        .card li div {
+            display: inline-block;
+            flex: 1;
+        }
+
+        #quick-summary .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        #quick-summary .summary-day {
+            background: #fafafa;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        #quick-summary .summary-day strong {
+            color: var(--color-secondary);
+            display: block;
+            font-size: 1.05em;
+            margin-bottom: 5px;
+        }
+
+        .day-card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .day-card summary {
+            padding: 18px 20px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: linear-gradient(to right, #fafafa, #ffffff);
+            transition: background 0.3s;
+        }
+
+        .day-card summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .day-card summary:hover {
+            background: linear-gradient(to right, #f5f5f5, #fafafa);
+        }
+
+        .day-card summary::after {
+            content: '▼';
+            color: var(--color-secondary);
+            font-size: 0.8em;
+            margin-left: 15px;
+            transition: transform 0.3s;
+        }
+
+        .day-card[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .day-card h3 {
+            margin: 0;
+            color: var(--color-secondary);
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        .day-card summary p {
+            margin: 5px 0 0 0;
+            color: var(--color-text-light);
+            font-size: 1em;
+        }
+
+        .day-content {
+            padding: 0 20px 20px 20px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .day-header-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: block;
+        }
+
+        .timeline-img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: block;
+            border: 2px solid var(--color-border);
+        }
+
+        .pro-tip, .warning {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-style: solid;
+            border-width: 1px 1px 1px 4px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95em;
+        }
+        .pro-tip .mdi, .warning .mdi {
+            font-size: 1.4em;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .pro-tip {
+            background-color: var(--color-tip-bg);
+            border-color: var(--color-tip-border);
+            color: var(--color-tip-text);
+        }
+        .warning {
+            background-color: var(--color-warning-bg);
+            border-color: var(--color-warning-border);
+            color: var(--color-warning-text);
+        }
+        .pro-tip div, .warning div {
+            flex: 1;
+        }
+
+        .timeline {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .timeline th, .timeline td {
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            vertical-align: top;
+        }
+
+        .timeline th {
+            background-color: #fcfcfc;
+            font-size: 11px;
+            color: var(--color-text-light);
+            text-transform: uppercase;
+            font-family: -apple-system, sans-serif;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .timeline td:nth-child(1) { font-weight: 600; width: 60px; color: var(--color-secondary); }
+        .timeline td:nth-child(2) { width: 40%; }
+        .timeline td:nth-child(3) { width: 10%; text-align: center; }
+        .timeline td:nth-child(4) { width: 10%; text-align: center; }
+
+        .timeline a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .timeline a:hover {
+            text-decoration: underline;
+        }
+
+        .note-orig {
+            font-weight: 600;
+            color: var(--color-text);
+            display: block;
+            margin-bottom: 3px;
+        }
+        .note-sup {
+            font-size: 0.9em;
+            color: var(--color-text-light);
+            display: block;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .highlight {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        /* 手機優化 */
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+                padding: 5px;
+            }
+
+            .container {
+                padding: 0 5px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .card h2 {
+                font-size: 1.3em;
+            }
+
+            .day-card summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                padding: 15px;
+            }
+
+            .day-card summary::after {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+            }
+
+            .day-card h3 {
+                font-size: 1.2em;
+            }
+
+            .day-card summary p {
+                font-size: 0.9em;
+            }
+
+            .day-content {
+                padding: 0 15px 15px 15px;
+            }
+
+            .timeline-img {
+                max-width: 100%;
+            }
+
+            /* 手機版表格卡片式顯示 */
+            .timeline thead { 
+                display: none; 
+            }
+            
+            .timeline tr { 
+                display: block; 
+                margin-bottom: 15px; 
+                border: 1px solid var(--color-border); 
+                border-radius: 8px; 
+                padding: 12px;
+                background: #fafafa;
+            }
+            
+            .timeline td { 
+                display: block; 
+                border: none; 
+                padding: 6px 0; 
+                text-align: left !important; 
+            }
+            
+            .timeline td:nth-child(1) { 
+                font-size: 1.3em; 
+                color: var(--color-secondary);
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid var(--color-border);
+            }
+            
+            .timeline td:before {
+                font-weight: 600;
+                color: #666;
+                display: inline-block;
+                min-width: 60px;
+                font-family: -apple-system, sans-serif;
+                font-size: 0.85em;
+            }
+            
+            .timeline td:nth-child(2):before { content: '📍 活動: '; }
+            .timeline td:nth-child(3):before { content: '🚗 車程: '; }
+            .timeline td:nth-child(4):before { content: '⏱️ 停留: '; }
+            .timeline td:nth-child(5):before { content: '💡 備註: '; }
+
+            .install-prompt {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .install-prompt-text {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .install-btn, .close-btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            #quick-summary .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 小螢幕優化 */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.3em;
+            }
+
+            .card h2 {
+                font-size: 1.2em;
+            }
+
+            .day-card h3 {
+                font-size: 1.1em;
+            }
+        }
+
+        /* 深色模式支援 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #1a1a1a;
+                --color-card-bg: #2d2d2d;
+                --color-text: #e0e0e0;
+                --color-text-light: #b0b0b0;
+                --color-border: #404040;
+                --color-tip-bg: #3d2a1a;
+                --color-warning-bg: #3d2f1a;
+            }
+
+            .timeline tr {
+                background: #252525;
+            }
+
+            #quick-summary .summary-day {
+                background: #252525;
+            }
+
+            .day-card summary {
+                background: linear-gradient(to right, #2a2a2a, #2d2d2d);
+            }
+
+            .day-card summary:hover {
+                background: linear-gradient(to right, #252525, #2a2a2a);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 離線提示 -->
+    <div class="offline-indicator" id="offlineIndicator">
+        <span class="mdi mdi-wifi-off"></span> 目前處於離線模式
+    </div>
+
+    <!-- PWA 安裝提示 -->
+    <div class="install-prompt" id="installPrompt">
+        <div class="install-prompt-text">
+            <strong><span class="mdi mdi-download"></span>安裝到手機</strong>
+            <small>離線也能隨時查看行程</small>
+        </div>
+        <div>
+            <button class="install-btn" id="installBtn">安裝</button>
+            <button class="close-btn" id="closePrompt">稍後</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1><span class="mdi mdi-airplane-takeoff mdi-inline"></span>濟州島 5天4夜行程<br><small style="font-size: 0.6em; color: var(--color-text-light);">達、岱臻、爸、媽</small></h1>
+        </header>
+
+        <section class="card" id="core-info">
+            <h2><span class="mdi mdi-format-list-checks mdi-inline"></span>核心資訊</h2>
+            <ul>
+                <li><span class="mdi mdi-account-group"></span><div><strong>人員:</strong> 4 人 (達、岱臻、爸、媽)</div></li>
+                <li><span class="mdi mdi-car"></span>
+                    <div><strong>租車:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Lotte+Rent-a-Car+Jeju+Airport" target="_blank">樂天租車</a>
+                        <span class="note-sup">11/21 11:30 取車 - 11/25 20:00 還車</span>
+                    </div>
+                </li>
+                <li><span class="mdi mdi-office-building"></span><div><strong>住宿 1:</strong> Hotel RegentMarine (11/21-11/23)</div></li>
+                <li><span class="mdi mdi-home"></span><div><strong>住宿 2:</strong> 西歸浦 Airbnb (11/23-11/25)</div></li>
+            </ul>
+        </section>
+
+        <section class="card" id="quick-summary">
+            <h2><span class="mdi mdi-map mdi-inline"></span>行程總覽</h2>
+            <div class="summary-grid">
+                <div class="summary-day">
+                    <strong>11/21 (五)</strong>
+                    機場取車、市區探索、接機、東門夜市
+                </div>
+                <div class="summary-day">
+                    <strong>11/22 (六)</strong>
+                    倫敦貝果、山君不離、城山日出峰、黑豬肉
+                </div>
+                <div class="summary-day">
+                    <strong>11/23 (日)</strong>
+                    熟成道烤肉、換宿至西歸浦、偶來市場
+                </div>
+                <div class="summary-day">
+                    <strong>11/24 (一)</strong>
+                    瀑布、射擊場、雪綠茶博物館、海岸景觀
+                </div>
+                <div class="summary-day">
+                    <strong>11/25 (二)</strong>
+                    送機、涯月邑咖啡廳、購物、還車
+                </div>
+            </div>
+        </section>
+
+        <section id="detailed-days">
+            <h2 style="margin-left: 5px;"><span class="mdi mdi-calendar mdi-inline"></span>每日詳細行程</h2>
+
+            <details class="day-card" open>
+                <summary>
+                    <div>
+                        <h3>Day 1: 11/21 (五)</h3>
+                        <p>濟州市 - 機場取車、接機、夜市</p>
+                    </div>
+                </summary>
+                <div class="day-content">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>提示：</strong>第一天重點是順利取車和安頓。Emart 11/22 店休，今晚必須先採買。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Lotte+Rent-a-Car+Jeju+Airport" target="_blank">樂天租車</a></td>
+                                <td>-</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">機場接駁過去</span><span class="note-sup">攜帶國際駕照和信用卡</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Paris+Baguette+Jeju" target="_blank">Paris Baguette</a></td>
+                                <td>10m</td>
+                                <td>15m</td>
+                                <td><span class="note-orig">快速買點心</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=자매국수+Jeju" target="_blank">姊妹湯麵</a></td>
+                                <td>10m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">豬肉湯麵必吃</span><span class="note-sup">14:00-16:00 休息</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=에귤타르트+이호테우해변점" target="_blank">橘子塔</a></td>
+                                <td>10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">橘子塔 + 海景</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=9.81+Park+Jeju" target="_blank">9.81 Park</a></td>
+                                <td>30m</td>
+                                <td>2.5hr</td>
+                                <td><span class="note-orig">重力賽車</span><span class="note-sup">票在 Klook</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=귤메달+하우스" target="_blank">橘子汁店</a></td>
+                                <td>35m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">飯店旁邊</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+RegentMarine+Jeju" target="_blank">Hotel RegentMarine</a></td>
+                                <td>10m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">Check-in 休息</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jeju+International+Airport" target="_blank">濟州機場</a></td>
+                                <td>15m</td>
+                                <td>45m</td>
+                                <td><span class="note-orig"><span class="highlight">20:00 接爸媽</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>20:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Dongmun+Market+Jeju" target="_blank">東門市場</a></td>
+                                <td>15m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">夜市 18:00-24:00</span></td>
+                            </tr>
+                            <tr>
+                                <td>22:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Emart+Jeju" target="_blank">Emart</a></td>
+                                <td>10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">11/22 店休！今天必買</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <details class="day-card">
+                <summary>
+                    <div>
+                        <h3>Day 2: 11/22 (六)</h3>
+                        <p>濟州東部 - 貝果、山君不離、日出峰</p>
+                    </div>
+                </summary>
+                <div class="day-content">
+                    <img src="images/seongsan.jpg" alt="城山日出峰" class="day-header-img">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>提示：</strong>倫敦貝果務必提早抽號。如時間不夠，Snoopy Garden 可跳過。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=London+Bagel+Museum+Jeju" target="_blank">倫敦貝果博物館</a></td>
+                                <td>40m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig">Catch Table 抽號</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Cafe+The+Container+Jeju" target="_blank">The Container 咖啡廳</a></td>
+                                <td>25m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">橘子咖啡 + 橘子園</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:45</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Sangumburi+Crater" target="_blank">山君不離</a></td>
+                                <td>30m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">芒草 / 門票 7000₩</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:15</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Snoopy+Garden+Jeju" target="_blank">Snoopy Garden</a></td>
+                                <td>15m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">時間多再去</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Blue+Bottle+Jeju" target="_blank">Blue Bottle</a></td>
+                                <td>30m</td>
+                                <td>45m</td>
+                                <td><span class="note-orig">濟州限定周邊</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Seongsan+Ilchulbong" target="_blank">城山日出峰</a></td>
+                                <td>40m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">17:20 日落</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td>前往咸德海邊</td>
+                                <td>60m</td>
+                                <td>-</td>
+                                <td><span class="note-orig">本日最長車程</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Audrant+Bakery+Jeju" target="_blank">Audrant 大蒜麵包</a></td>
+                                <td>-</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">7:00-22:00</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=카페요아정" target="_blank">優格冰</a></td>
+                                <td>5m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">17:00-23:40</span></td>
+                            </tr>
+                            <tr>
+                                <td>20:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Donsadon+Jeju" target="_blank">豬舍豬烤肉</a></td>
+                                <td>30m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig"><span class="highlight">訂位 18:30 (建議改期)</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>22:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Chilseong+Street+Jeju" target="_blank">七星街散步</a></td>
+                                <td>10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">飯後消食</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <details class="day-card">
+                <summary>
+                    <div>
+                        <h3>Day 3: 11/23 (日)</h3>
+                        <p>跨區移動 - 濟州 → 西歸浦</p>
+                    </div>
+                </summary>
+                <div class="day-content">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>提示：</strong>12:00 前退房，12:00 準時到達熟成道用餐。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Dongmun+Market+Jeju" target="_blank">東門市場 / 七星街</a></td>
+                                <td>5m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">補逛、買紀念品</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+RegentMarine+Jeju" target="_blank">Hotel RegentMarine</a></td>
+                                <td>5m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig"><span class="highlight">12:00 前 Check-out</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>11:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Suksungdo+Jeju" target="_blank">熟成道烤肉</a></td>
+                                <td>20m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig"><span class="highlight">訂位 12:00</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>13:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Jeju" target="_blank">樂天超市</a></td>
+                                <td>10m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">採買零食飲料</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=새별프렌즈" target="_blank">새별프렌즈 農場</a></td>
+                                <td>30m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">可愛動物農場</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=제주당+베이커리" target="_blank">濟州堂麵包</a></td>
+                                <td>20m</td>
+                                <td>45m</td>
+                                <td><span class="note-orig">牛奶芝麻軟法好吃</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Olle+Market+Seogwipo" target="_blank">偶來市場</a></td>
+                                <td>50m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">西歸浦最大市場</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:30</td>
+                                <td>Airbnb Check-in</td>
+                                <td>10m</td>
+                                <td>-</td>
+                                <td><span class="note-orig"><span class="highlight">16:00 後可入住</span></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <details class="day-card">
+                <summary>
+                    <div>
+                        <h3>Day 4: 11/24 (一)</h3>
+                        <p>西歸浦 - 瀑布、射擊、雪綠茶</p>
+                    </div>
+                </summary>
+                <div class="day-content">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>提示：</strong>龍頭海岸受潮汐影響，建議查詢當日潮汐表。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jeongbang+Waterfall" target="_blank">正房瀑布</a></td>
+                                <td>10m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">亞洲唯一入海瀑布</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=제주실탄사격장" target="_blank">濟州實彈射擊場</a></td>
+                                <td>15m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">攜帶護照</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:45</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=만족의+상회" target="_blank">滿足的商會</a></td>
+                                <td>20m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">海鮮餐廳</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:15</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Osulloc+Tea+Museum" target="_blank">雪綠茶博物館</a></td>
+                                <td>40m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">綠茶冰淇淋必吃</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Yongmeori+Coast" target="_blank">龍頭海岸</a></td>
+                                <td>20m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">注意潮汐</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:15</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jusangjeolli+Cliff" target="_blank">柱狀節理帶</a></td>
+                                <td>25m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">六角形石柱</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=BHC+Chicken+Seogwipo" target="_blank">BHC 炸雞</a></td>
+                                <td>20m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">Macho King 外帶</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <details class="day-card">
+                <summary>
+                    <div>
+                        <h3>Day 5: 11/25 (二)</h3>
+                        <p>返途日 - 送機、涯月、還車</p>
+                    </div>
+                </summary>
+                <div class="day-content">
+                    <div class="pro-tip">
+                        <span class="mdi mdi-lightbulb-on"></span>
+                        <div><strong>提示：</strong>一早從西歸浦到機場車程 1-1.5 小時，請提早出發。</div>
+                    </div>
+                    <table class="timeline">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>活動</th>
+                                <th>車程</th>
+                                <th>停留</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>07:30</td>
+                                <td>Airbnb Check-out</td>
+                                <td>70m</td>
+                                <td>-</td>
+                                <td><span class="note-orig">帶上所有行李</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Jeju+Airport" target="_blank">濟州機場</a></td>
+                                <td>-</td>
+                                <td>30m</td>
+                                <td><span class="note-orig"><span class="highlight">09:00 送爸媽</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>09:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=PPEUM+Clinic+Jeju" target="_blank">PPEUM 診所</a></td>
+                                <td>15m</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig"><span class="highlight">預約 10:00</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>11:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Aewol-eup" target="_blank">涯月邑</a></td>
+                                <td>40m</td>
+                                <td>2.5hr</td>
+                                <td><span class="note-orig">看海 / 咖啡廳</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:45</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Shilla+Duty+Free+Jeju" target="_blank">新羅免稅店</a> / 蓮洞步行街</td>
+                                <td>30m</td>
+                                <td>2hr</td>
+                                <td><span class="note-orig">二選一</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:00</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=식당+마요네즈" target="_blank">식당 마요네즈</a></td>
+                                <td>10m</td>
+                                <td>1.5hr</td>
+                                <td><span class="note-orig">炸豬排義大利麵</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td>最後採買</td>
+                                <td>-</td>
+                                <td>1hr</td>
+                                <td><span class="note-orig">Lotte Mart</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:30</td>
+                                <td>加油</td>
+                                <td>-</td>
+                                <td>30m</td>
+                                <td><span class="note-orig">還車前加滿油</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query=Lotte+Rent-a-Car+Jeju" target="_blank">樂天租車</a></td>
+                                <td>10m</td>
+                                <td>30m</td>
+                                <td><span class="note-orig"><span class="highlight">20:00 還車</span></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </section>
+
+    </div>
+
+    <script>
+        // Service Worker 註冊
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('Service Worker 已註冊'))
+                    .catch(err => console.log('Service Worker 註冊失敗:', err));
+            });
+        }
+
+        // PWA 安裝提示
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+        const installBtn = document.getElementById('installBtn');
+        const closePrompt = document.getElementById('closePrompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.classList.remove('hidden');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`使用者選擇: ${outcome}`);
+                deferredPrompt = null;
+                installPrompt.classList.add('hidden');
+            }
+        });
+
+        closePrompt.addEventListener('click', () => {
+            installPrompt.classList.add('hidden');
+        });
+
+        // 離線/在線狀態檢測
+        const offlineIndicator = document.getElementById('offlineIndicator');
+
+        window.addEventListener('online', () => {
+            offlineIndicator.classList.remove('show');
+        });
+
+        window.addEventListener('offline', () => {
+            offlineIndicator.classList.add('show');
+        });
+
+        // 檢查初始狀態
+        if (!navigator.onLine) {
+            offlineIndicator.classList.add('show');
+        }
+
+        // 如果已經安裝，隱藏安裝提示
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            installPrompt.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
