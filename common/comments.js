@@ -169,7 +169,7 @@ class TravelComments {
             // Google Forms 會自動記錄時間戳記,不需要手動提交
 
             // 提交到 Google Forms
-            const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.likes.formId}/formResponse`;
+            const formUrl = `https://docs.google.com/forms/d/${FORMS_CONFIG.likes.formId}/formResponse`;
             
             // 使用 no-cors 模式 (無法讀取回應,但可以提交)
             await fetch(formUrl, {
@@ -211,7 +211,7 @@ class TravelComments {
             // Google Forms 會自動記錄時間戳記,不需要手動提交
 
             // 提交到 Google Forms
-            const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.comments.formId}/formResponse`;
+            const formUrl = `https://docs.google.com/forms/d/${FORMS_CONFIG.comments.formId}/formResponse`;
             
             // 使用 no-cors 模式 (無法讀取回應,但可以提交)
             await fetch(formUrl, {
@@ -289,6 +289,42 @@ class TravelComments {
             month: '2-digit', 
             day: '2-digit' 
         });
+    }
+
+    // 顯示訊息提示
+    showMessage(spotId, message, type = 'info') {
+        // 在對應的景點區域顯示訊息
+        const spotContainer = document.querySelector(`[data-spot-id="${spotId}"]`);
+        if (!spotContainer) {
+            console.log(`[${type.toUpperCase()}] ${message}`);
+            return;
+        }
+
+        // 建立訊息元素
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message-toast message-${type}`;
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#ff9800'};
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideDown 0.3s ease-out;
+        `;
+
+        document.body.appendChild(messageDiv);
+
+        // 3秒後移除
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideUp 0.3s ease-out';
+            setTimeout(() => messageDiv.remove(), 300);
+        }, 3000);
     }
 
     // 初始化所有景點的互動區域
