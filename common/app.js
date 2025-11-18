@@ -225,6 +225,58 @@ document.addEventListener('DOMContentLoaded', () => {
         dayMenuOverlay.addEventListener('click', closeMenu);
     }
     
+    // 選單手勢滑動功能
+    if (dayMenu) {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchCurrentX = 0;
+        let isDragging = false;
+        
+        dayMenu.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isDragging = false;
+            dayMenu.style.transition = 'none';
+        }, { passive: true });
+        
+        dayMenu.addEventListener('touchmove', (e) => {
+            touchCurrentX = e.touches[0].clientX;
+            const touchCurrentY = e.touches[0].clientY;
+            const deltaX = touchCurrentX - touchStartX;
+            const deltaY = Math.abs(touchCurrentY - touchStartY);
+            
+            // 只有當水平滑動大於垂直滑動時才觸發
+            if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 10) {
+                isDragging = true;
+                // 只允許向右滑動
+                if (deltaX > 0) {
+                    dayMenu.style.transform = `translateX(${deltaX}px)`;
+                    // 根據滑動距離調整遮罩透明度
+                    const opacity = 1 - (deltaX / dayMenu.offsetWidth);
+                    dayMenuOverlay.style.opacity = Math.max(0, opacity * 0.5);
+                }
+            }
+        }, { passive: true });
+        
+        dayMenu.addEventListener('touchend', () => {
+            dayMenu.style.transition = 'transform 0.3s ease, right 0.3s ease';
+            const deltaX = touchCurrentX - touchStartX;
+            
+            // 如果滑動超過選單寬度的 30%,則關閉選單
+            if (isDragging && deltaX > dayMenu.offsetWidth * 0.3) {
+                closeMenu();
+            } else {
+                // 否則彈回原位
+                dayMenu.style.transform = '';
+                dayMenuOverlay.style.opacity = '';
+            }
+            
+            isDragging = false;
+            touchStartX = 0;
+            touchCurrentX = 0;
+        });
+    }
+    
     // 監聽滾動更新選單中的活動項目
     window.addEventListener('scroll', () => {
         const menuItems = document.querySelectorAll('.day-menu-item');

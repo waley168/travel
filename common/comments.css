@@ -143,26 +143,43 @@
 
 .comment-item {
     background: white;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid var(--color-primary);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.comment-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateX(2px);
 }
 
 .comment-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    gap: 10px;
 }
 
 .comment-header strong {
     color: var(--color-primary);
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .comment-time {
     font-size: 12px;
     color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.comment-time .iconify {
+    font-size: 14px;
 }
 
 .comment-text {
