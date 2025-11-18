@@ -1,10 +1,13 @@
-const CACHE_NAME = 'jeju-trip-v2';
+const CACHE_NAME = 'jeju-trip-v3';
 const urlsToCache = [
   './jeju_trip_pwa.html',
   './manifest.json',
   './theme.css',
   '../common/styles.css',
   '../common/app.js',
+  '../common/forms-config.js',
+  '../common/comments.js',
+  '../common/comments.css',
   // 圖片檔案 (自動生成)
   './images/981park.jpg',
   './images/bakery1.jpg',
