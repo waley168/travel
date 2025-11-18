@@ -1,4 +1,4 @@
-// Google Apps Script - 旅行留言與按讚 API (已修正 CORS)
+// Google Apps Script - 旅行留言與按讚 API (完整 CORS 支援)
 
 function doGet(e) {
   const action = e.parameter.action;
@@ -38,12 +38,15 @@ function doPost(e) {
   }
 }
 
+// OPTIONS 請求處理 (CORS preflight)
+function doOptions(e) {
+  return createCORSResponse({});
+}
+
 // 建立支援 CORS 的回應
 function createCORSResponse(data) {
-  const output = ContentService.createTextOutput(JSON.stringify(data))
+  return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
-  
-  return output;
 }
 
 function getAllData(tripId) {
