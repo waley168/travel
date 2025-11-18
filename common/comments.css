@@ -1,0 +1,199 @@
+/* 留言和按讚區塊樣式 */
+
+.spot-interaction {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+}
+
+.like-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.like-btn {
+    background: white;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.like-btn:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: white;
+    transform: scale(1.05);
+}
+
+.like-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.like-btn.liked {
+    background: var(--color-primary);
+    color: white;
+    animation: likeAnimation 0.5s ease;
+}
+
+@keyframes likeAnimation {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.like-count {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.comments-section {
+    margin-top: 15px;
+}
+
+.comments-section h4 {
+    margin: 0 0 15px 0;
+    font-size: 1.1em;
+    color: var(--color-text);
+}
+
+.comment-form {
+    margin-bottom: 20px;
+}
+
+.comment-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-nickname {
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 200px;
+}
+
+.comment-input {
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    width: 100%;
+}
+
+.comment-input:focus,
+.comment-nickname:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1);
+}
+
+.comment-submit {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    font-family: inherit;
+}
+
+.comment-submit:hover:not(:disabled) {
+    background: var(--color-secondary);
+}
+
+.comment-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comment-item {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-header strong {
+    color: var(--color-primary);
+    font-size: 14px;
+}
+
+.comment-time {
+    font-size: 12px;
+    color: var(--color-text-light);
+}
+
+.comment-text {
+    color: var(--color-text);
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.comments-empty {
+    text-align: center;
+    color: var(--color-text-light);
+    padding: 20px;
+    font-size: 14px;
+}
+
+/* 響應式 */
+@media (max-width: 768px) {
+    .spot-interaction {
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    .comment-nickname {
+        width: 100%;
+    }
+
+    .like-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .like-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
