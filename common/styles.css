@@ -1,0 +1,678 @@
+/* 共用基礎樣式 - 適用於所有旅行行程 */
+
+* {
+    box-sizing: border-box;
+}
+
+/* PWA 安裝提示 */
+.install-prompt {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+}
+
+.install-prompt.hidden {
+    display: none;
+}
+
+.install-prompt-text {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.install-prompt-text strong {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.install-prompt-text small {
+    opacity: 0.9;
+    font-size: 0.9em;
+}
+
+.install-btn {
+    background: white;
+    color: var(--color-primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.install-btn:active {
+    transform: scale(0.95);
+}
+
+.close-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+/* 離線狀態提示 */
+.offline-indicator {
+    background: #555;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: none;
+}
+
+.offline-indicator.show {
+    display: block;
+}
+
+/* 固定日期標題 */
+.fixed-day-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: 12px 20px;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.fixed-day-header.show {
+    transform: translateY(0);
+}
+
+.fixed-day-header .day-title {
+    text-align: center;
+    cursor: pointer;
+}
+
+/* 當固定標題顯示時,為 body 加上 padding */
+body.has-fixed-header {
+    padding-top: 60px;
+}
+
+body {
+    font-family: "Noto Serif TC", "Songti TC", "LiSong Pro", "STSong", "AR PL UMing CN", serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.75;
+    margin: 0;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.mdi {
+    vertical-align: -0.125em;
+    margin-right: 6px;
+}
+
+.mdi-inline {
+    font-size: 1.2em;
+}
+
+.mdi-naver {
+    font-size: 1.3em;
+    margin-left: 8px;
+    margin-right: 0;
+    color: #03C75A;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: all 0.2s;
+    padding: 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.mdi-naver:hover {
+    opacity: 1;
+    background-color: rgba(3, 199, 90, 0.1);
+    transform: scale(1.1);
+}
+
+.naver-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
+    vertical-align: -5px;
+    opacity: 0.85;
+    transition: all 0.25s;
+    padding: 3px;
+    border-radius: 4px;
+}
+
+.naver-icon:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    background-color: rgba(3, 199, 90, 0.1);
+}
+
+.naver-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+header h1 {
+    color: var(--color-primary);
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.card {
+    background-color: var(--color-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-border);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    color: var(--color-primary);
+    font-size: 1.7em;
+    font-weight: 700;
+}
+
+.card ul {
+    padding-left: 20px;
+    list-style: none;
+}
+
+.card li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.1em;
+}
+
+.card li .mdi {
+    color: var(--color-primary);
+    margin-top: 5px;
+}
+
+.card li div {
+    display: inline-block;
+}
+
+#quick-summary .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+}
+
+#quick-summary .summary-day {
+    background: #fafafa;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 18px;
+}
+
+#quick-summary .summary-day strong {
+    color: var(--color-secondary);
+    display: block;
+    font-size: 1.15em;
+    margin-bottom: 5px;
+}
+
+.day-card {
+    background-color: var(--color-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+}
+
+.day-card summary {
+    padding: 22px 25px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.day-card summary::after {
+    content: '';
+}
+
+.day-card h3 {
+    margin: 0;
+    color: var(--color-secondary);
+    font-size: 1.75em;
+    font-weight: 700;
+}
+
+.day-card summary p {
+    margin: 0;
+    color: var(--color-text-light);
+    font-size: 1.15em;
+}
+
+.day-content {
+    padding: 0 25px 25px 25px;
+    border-top: 1px solid var(--color-border);
+}
+
+.day-header-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.timeline-img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 12px;
+    display: block;
+    border: 2px solid var(--color-border);
+}
+
+.pro-tip, .warning {
+    padding: 18px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-style: solid;
+    border-width: 1px 1px 1px 4px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 1em;
+}
+
+.pro-tip .mdi, .warning .mdi {
+    font-size: 1.4em;
+    margin-top: 2px;
+}
+
+.pro-tip {
+    background-color: var(--color-tip-bg);
+    border-color: var(--color-tip-border);
+    color: var(--color-tip-text);
+}
+
+.warning {
+    background-color: var(--color-warning-bg);
+    border-color: var(--color-warning-border);
+    color: var(--color-warning-text);
+}
+
+.pro-tip div, .warning div {
+    flex: 1;
+}
+
+.timeline {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 15px;
+}
+
+.timeline th, .timeline td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+}
+
+.timeline th {
+    background-color: #fcfcfc;
+    font-size: 11px;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    font-family: -apple-system, sans-serif;
+    font-weight: 600;
+}
+
+.timeline td:nth-child(1) { font-weight: 600; width: 65px; color: var(--color-secondary); }
+.timeline td:nth-child(2) { width: 40%; }
+.timeline td:nth-child(3) { width: 10%; text-align: center; }
+.timeline td:nth-child(4) { width: 10%; text-align: center; }
+
+.timeline a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.timeline a:hover {
+    text-decoration: underline;
+}
+
+.note-orig {
+    font-weight: 600;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 3px;
+}
+
+.note-sup {
+    font-size: 0.95em;
+    color: var(--color-text-light);
+    display: block;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.highlight {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* 響應式設計 - 手機版 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    body.has-fixed-header {
+        padding-top: 70px;
+    }
+
+    .container {
+        padding: 0 5px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+
+    header h1 {
+        font-size: 1.6em;
+    }
+
+    .day-card {
+        margin-bottom: 15px;
+    }
+
+    .day-card summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 15px;
+    }
+
+    .day-card summary p {
+        font-size: 0.95em;
+    }
+
+    .day-card h3 {
+        font-size: 1.3em;
+    }
+
+    .day-content {
+        padding: 0 15px 15px 15px;
+    }
+
+    .day-header-img {
+        max-height: 200px;
+        margin: 10px 0;
+    }
+
+    .timeline-img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    /* 手機版表格優化 */
+    .timeline {
+        font-size: 14px;
+    }
+
+    .timeline thead { 
+        display: none; 
+    }
+
+    .timeline tr { 
+        display: block; 
+        width: 100%;
+        margin-bottom: 15px; 
+        border: 1px solid var(--color-border); 
+        border-radius: 10px; 
+        padding: 12px;
+        background: linear-gradient(to bottom, #ffffff, #fafafa);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .timeline td { 
+        display: block; 
+        width: 100% !important;
+        border: none; 
+        padding: 8px 0;
+        text-align: left !important;
+        word-wrap: break-word;
+    }
+
+    .timeline td:nth-child(1) { 
+        font-size: 1.3em; 
+        color: var(--color-secondary);
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--color-border);
+        font-weight: 700;
+        text-align: center !important;
+    }
+
+    .timeline td:nth-child(2),
+    .timeline td:nth-child(3),
+    .timeline td:nth-child(4),
+    .timeline td:nth-child(5) {
+        padding: 6px 0;
+        line-height: 1.6;
+    }
+
+    .timeline td:before {
+        font-weight: 700;
+        color: var(--color-primary);
+        display: inline-block;
+        min-width: 60px;
+        font-family: -apple-system, sans-serif;
+        font-size: 0.9em;
+        margin-right: 5px;
+    }
+
+    .timeline td:nth-child(2):before { content: '📍  活動'; }
+    .timeline td:nth-child(3):before { content: '🚗  車程'; }
+    .timeline td:nth-child(4):before { content: '⏱️  停留'; }
+    .timeline td:nth-child(5):before { content: '💡  備註'; }
+
+    .timeline a {
+        word-break: break-word;
+    }
+
+    .note-orig,
+    .note-sup {
+        display: block;
+        width: 100%;
+    }
+
+    .pro-tip,
+    .warning {
+        padding: 12px;
+        margin: 15px 0;
+        font-size: 0.9em;
+    }
+
+    .install-prompt {
+        flex-direction: column;
+        text-align: center;
+        margin: 10px;
+        padding: 12px;
+    }
+
+    .install-prompt-text {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .install-btn, .close-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    #quick-summary .summary-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    #quick-summary .summary-day {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .card h2 {
+        font-size: 1.4em;
+    }
+
+    .card li {
+        font-size: 1em;
+    }
+}
+
+/* 列印樣式 */
+@media print {
+    body {
+        padding: 0;
+        font-family: "Noto Serif TC", serif;
+        font-size: 11pt;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .card, .day-card {
+        box-shadow: none;
+        border: 1px solid #999;
+        margin-bottom: 12px;
+        padding: 12px;
+        page-break-inside: avoid;
+    }
+
+    .day-card summary {
+        padding: 8px 0;
+    }
+
+    .day-content {
+        padding: 8px 0;
+        border-top: none;
+    }
+
+    .day-header-img {
+        height: 180px;
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+    }
+
+    .timeline-img, .mdi { display: none; }
+
+    .timeline {
+        font-size: 9pt;
+        margin-top: 8px;
+    }
+
+    .timeline th, .timeline td {
+        padding: 6px 4px;
+    }
+
+    .timeline th {
+        background-color: #f5f5f5;
+    }
+
+    .pro-tip, .warning {
+        border-width: 1px;
+        padding: 10px;
+        margin: 10px 0;
+        page-break-inside: avoid;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    details { all: initial; display: block; }
+    summary { all: initial; display: block; }
+    details[open] { display: block; }
+
+    .day-card summary h3 {
+        font-size: 14pt;
+        color: black;
+        margin-bottom: 4px;
+    }
+
+    .day-card summary p {
+        display: block;
+        font-size: 10pt;
+        color: #333;
+    }
+
+    .highlight { color: #000; font-weight: 700; }
+
+    .note-orig {
+        font-size: 9pt;
+    }
+
+    .note-sup {
+        font-size: 8pt;
+    }
+}

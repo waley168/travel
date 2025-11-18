@@ -1,0 +1,18 @@
+/* 濟州島行程專屬主題配色 */
+:root {
+    --color-primary: #D35400;      /* 主色 - 橘色 */
+    --color-secondary: #E67E22;    /* 次要色 - 亮橘色 */
+    --color-bg: #fdfdfd;           /* 背景色 */
+    --color-card-bg: #ffffff;      /* 卡片背景色 */
+    --color-text: #212529;         /* 文字色 */
+    --color-text-light: #555;      /* 淺文字色 */
+    --color-border: #eaeaea;       /* 邊框色 */
+    --color-tip-bg: #FFF3E0;       /* 提示背景色 */
+    --color-tip-border: #D35400;   /* 提示邊框色 */
+    --color-tip-text: #8D2B00;     /* 提示文字色 */
+    --color-warning-bg: #FDF5E6;   /* 警告背景色 */
+    --color-warning-border: #E67E22; /* 警告邊框色 */
+    --color-warning-text: #D35400; /* 警告文字色 */
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* 陰影 */
+    --border-radius: 10px;         /* 圓角 */
+}
