@@ -91,14 +91,15 @@ window.addEventListener('scroll', () => {
         }
     }
     
-    // 固定標題邏輯
-    const daySections = document.querySelectorAll('.day-section');
+    // 固定標題邏輯 - 使用 .day-card
+    const dayCards = document.querySelectorAll('.day-card');
     let activeDay = '';
     
-    daySections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom >= 100) {
-            const dayTitle = section.querySelector('h2')?.textContent;
+    dayCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        // 當卡片在視窗上方 1/3 處時
+        if (rect.top <= 150 && rect.bottom >= 150) {
+            const dayTitle = card.querySelector('h3')?.textContent;
             if (dayTitle) {
                 activeDay = dayTitle;
             }
@@ -110,19 +111,19 @@ window.addEventListener('scroll', () => {
         if (fixedDayTitle) {
             fixedDayTitle.textContent = currentDay;
         }
-        if (fixedDayHeader && scrolled > 300) {
+        if (fixedDayHeader && scrolled > 200) {
             fixedDayHeader.classList.add('show');
         }
-    } else if (!activeDay || scrolled <= 300) {
+    } else if (!activeDay || scrolled <= 200) {
         if (fixedDayHeader) {
             fixedDayHeader.classList.remove('show');
         }
+        currentDay = '';
     }
 });
 
 // 平滑捲動到指定元素
-function smoothScrollTo(elementId) {
-    const element = document.getElementById(elementId);
+function smoothScrollTo(element) {
     if (element) {
         const headerOffset = 80;
         const elementPosition = element.getBoundingClientRect().top;
@@ -146,10 +147,14 @@ function scrollToTop() {
 // 綁定行程總覽點擊事件
 document.addEventListener('DOMContentLoaded', () => {
     const summaryDays = document.querySelectorAll('.summary-day');
+    const dayCards = document.querySelectorAll('.day-card');
+    
     summaryDays.forEach((day, index) => {
         day.style.cursor = 'pointer';
         day.addEventListener('click', () => {
-            smoothScrollTo(`day${index + 1}`);
+            if (dayCards[index]) {
+                smoothScrollTo(dayCards[index]);
+            }
         });
     });
 });
