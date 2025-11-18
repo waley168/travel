@@ -254,11 +254,13 @@ class TravelComments {
             likeCount.textContent = data.likes || 0;
         }
 
-        // 更新留言列表
+        // 更新留言列表 (最新的在上方)
         const commentsList = document.querySelector(`[data-spot-id="${spotId}"] .comments-list`);
         
         if (commentsList && data.comments) {
-            commentsList.innerHTML = data.comments.map(c => `
+            // 反轉陣列,讓最新的留言在最上方
+            const sortedComments = [...data.comments].reverse();
+            commentsList.innerHTML = sortedComments.map(c => `
                 <div class="comment-item">
                     <div class="comment-header">
                         <strong>${this.escapeHtml(c.nickname)}</strong>
@@ -404,21 +406,19 @@ class TravelComments {
                 const comment = commentInput?.value;
                 
                 if (!comment || comment.trim() === '') {
-                    alert('請輸入留言內容');
+                    this.showMessage(spotId, '請輸入留言內容', 'warning');
                     return;
                 }
                 
                 submitBtn.disabled = true;
                 submitBtn.textContent = '送出中...';
                 
-                const result = await this.addComment(spotId, comment, nickname);
+                // 修正參數順序: (spotId, nickname, comment)
+                await this.addComment(spotId, nickname, comment);
                 
-                if (result.success) {
-                    commentInput.value = '';
-                    if (nicknameInput) nicknameInput.value = '';
-                } else {
-                    alert('留言失敗: ' + (result.error || '未知錯誤'));
-                }
+                // 清空表單
+                commentInput.value = '';
+                if (nicknameInput) nicknameInput.value = '';
                 
                 submitBtn.disabled = false;
                 submitBtn.textContent = '送出留言';
