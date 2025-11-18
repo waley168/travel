@@ -1,17 +1,29 @@
-// Google Apps Script - 旅行留言與按讚 API (完整 CORS 支援)
+// Google Apps Script - 旅行留言與按讚 API (使用 JSONP 繞過 CORS)
 
 function doGet(e) {
   const action = e.parameter.action;
   const tripId = e.parameter.tripId;
+  const callback = e.parameter.callback; // JSONP callback
+  
+  let result;
   
   if (action === 'getAll' && tripId) {
-    return getAllData(tripId);
+    result = getAllDataRaw(tripId);
+  } else {
+    result = { success: false, error: 'Invalid action' };
   }
   
-  return createCORSResponse({
-    success: false,
-    error: 'Invalid action'
-  });
+  // 如果有 callback 參數,使用 JSONP
+  if (callback) {
+    return ContentService
+      .createTextOutput(callback + '(' + JSON.stringify(result) + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  
+  // 否則返回 JSON
+  return ContentService
+    .createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function doPost(e) {
@@ -19,37 +31,28 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     const action = data.action;
     
+    let result;
+    
     if (action === 'addLike') {
-      return addLike(data.tripId, data.spotId);
+      result = addLikeRaw(data.tripId, data.spotId);
     } else if (action === 'addComment') {
-      return addComment(data.tripId, data.spotId, data.nickname, data.comment, data.timestamp);
+      result = addCommentRaw(data.tripId, data.spotId, data.nickname, data.comment, data.timestamp);
+    } else {
+      result = { success: false, error: 'Invalid action' };
     }
     
-    return createCORSResponse({
-      success: false,
-      error: 'Invalid action'
-    });
+    return ContentService
+      .createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
-    return createCORSResponse({
-      success: false,
-      error: error.toString()
-    });
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// OPTIONS 請求處理 (CORS preflight)
-function doOptions(e) {
-  return createCORSResponse({});
-}
-
-// 建立支援 CORS 的回應
-function createCORSResponse(data) {
-  return ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function getAllData(tripId) {
+function getAllDataRaw(tripId) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const likesSheet = ss.getSheetByName('Likes');
   const commentsSheet = ss.getSheetByName('Comments');
@@ -76,12 +79,10 @@ function getAllData(tripId) {
     }
   }
   
-  const resultArray = Object.values(result);
-  
-  return createCORSResponse(resultArray);
+  return Object.values(result);
 }
 
-function addLike(tripId, spotId) {
+function addLikeRaw(tripId, spotId) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName('Likes');
   const data = sheet.getDataRange().getValues();
@@ -106,13 +107,13 @@ function addLike(tripId, spotId) {
   const likes = getLikes(tripId, spotId);
   const comments = getComments(tripId, spotId);
   
-  return createCORSResponse({
+  return {
     success: true,
     data: { spotId, likes, comments }
-  });
+  };
 }
 
-function addComment(tripId, spotId, nickname, comment, timestamp) {
+function addCommentRaw(tripId, spotId, nickname, comment, timestamp) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName('Comments');
   
@@ -122,10 +123,10 @@ function addComment(tripId, spotId, nickname, comment, timestamp) {
   const likes = getLikes(tripId, spotId);
   const comments = getComments(tripId, spotId);
   
-  return createCORSResponse({
+  return {
     success: true,
     data: { spotId, likes, comments }
-  });
+  };
 }
 
 function getLikes(tripId, spotId) {

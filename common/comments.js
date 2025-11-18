@@ -12,8 +12,8 @@ class TravelComments {
     // 載入所有景點的按讚數和留言
     async loadAll() {
         try {
-            const response = await fetch(`${SHEET_API_URL}?action=getAll&tripId=${this.tripId}`);
-            const data = await response.json();
+            // 使用 JSONP 繞過 CORS
+            const data = await this.fetchJSONP(`${SHEET_API_URL}?action=getAll&tripId=${this.tripId}`);
             
             // 更新快取
             data.forEach(spot => {
@@ -26,6 +26,32 @@ class TravelComments {
             console.error('載入資料失敗:', error);
             return [];
         }
+    }
+
+    // JSONP 請求函數
+    fetchJSONP(url) {
+        return new Promise((resolve, reject) => {
+            const callbackName = 'jsonp_callback_' + Date.now();
+            const script = document.createElement('script');
+            
+            // 設定全域 callback 函數
+            window[callbackName] = (data) => {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                resolve(data);
+            };
+            
+            // 處理錯誤
+            script.onerror = () => {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                reject(new Error('JSONP request failed'));
+            };
+            
+            // 加入 callback 參數並載入腳本
+            script.src = url + '&callback=' + callbackName;
+            document.body.appendChild(script);
+        });
     }
 
     // 按讚
