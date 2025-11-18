@@ -10,7 +10,7 @@ const FORMS_CONFIG = {
         sheetId: '1Z0rRNRZnd16Xakc3O3RXZ-tPC8Uc1TGqevygmXtkGIM',
         
         // 按讚試算表的 CSV 發布網址
-        csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXQVw9xDV9xQF5Z4QZ0rRNRZnd16Xakc3O3RXZ-tPC8Uc1TGqevygmXtkGIM/pub?output=csv',
+        csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0jFL2sgsEe1MKuPnjs1b-mXKTxHfsXiTOiA_jrM4VC3k1AnBj6z3-7EtSwREZIi0OnVE4Y34MMvbl/pub?output=csv',
         
         // 表單欄位的 entry ID (從表單 HTML 取得)
         // ⚠️ 注意: 不包含 timestamp,因為 Google Forms 會自動記錄時間戳記
@@ -28,7 +28,7 @@ const FORMS_CONFIG = {
         sheetId: '1HzjmIsvi_okItcvDsBrb37y2PMuAH41lla6bBX9bmlI',
         
         // 留言試算表的 CSV 發布網址
-        csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHzjmIsvi_okItcvDsBrb37y2PMuAH41lla6bBX9bmlI/pub?output=csv',
+        csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTh-kovXpHJ_hicOfYPtr-g4oA2W6wAFozF9LeSp45DARciPhRBjjCwqmBCPT4z3VOD4548C-GvxNH5/pub?output=csv',
         
         // 表單欄位的 entry ID
         // ⚠️ 注意: 不包含 timestamp,因為 Google Forms 會自動記錄時間戳記
