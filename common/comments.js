@@ -169,7 +169,7 @@ class TravelComments {
             // Google Forms 會自動記錄時間戳記,不需要手動提交
 
             // 提交到 Google Forms
-            const formUrl = `https://docs.google.com/forms/d/${FORMS_CONFIG.likes.formId}/formResponse`;
+            const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.likes.formId}/formResponse`;
             
             // 使用 no-cors 模式 (無法讀取回應,但可以提交)
             await fetch(formUrl, {
@@ -211,7 +211,7 @@ class TravelComments {
             // Google Forms 會自動記錄時間戳記,不需要手動提交
 
             // 提交到 Google Forms
-            const formUrl = `https://docs.google.com/forms/d/${FORMS_CONFIG.comments.formId}/formResponse`;
+            const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.comments.formId}/formResponse`;
             
             // 使用 no-cors 模式 (無法讀取回應,但可以提交)
             await fetch(formUrl, {

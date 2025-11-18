@@ -4,7 +4,7 @@
 const FORMS_CONFIG = {
     likes: {
         // 按讚表單 ID (從表單網址取得)
-        formId: '1JVSxrAPf-S4mB_LR_UJJXhmqnSgwe8qE8nkLnfAiyDQ',
+        formId: '1FAIpQLSerMfj9kXcIl-elOX7koZkYZn9XO_wo3nKvxZY1K3UcHAxCQA',
         
         // 按讚試算表 ID (從試算表網址取得)
         sheetId: '1Z0rRNRZnd16Xakc3O3RXZ-tPC8Uc1TGqevygmXtkGIM',
@@ -22,7 +22,7 @@ const FORMS_CONFIG = {
     
     comments: {
         // 留言表單 ID
-        formId: '1-Kbs2BeH6wjVlJ8myeIO_ZShb0GcBH3myVIC-nmLh_U',
+        formId: '1FAIpQLSd3XZdm_0-O07t7GrpKIDt-2GMYJhFX52_z-oMJq9d7lD0ohg',
         
         // 留言試算表 ID
         sheetId: '1HzjmIsvi_okItcvDsBrb37y2PMuAH41lla6bBX9bmlI',
