@@ -1,117 +1,238 @@
-// Google Sheets 留言和按讚功能
-// 請將 SHEET_API_URL 替換為你的 Google Apps Script Web API URL
-
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw4xpYlKJcGWf9WjNJYAUkL2Ykb8kTwJEKSeIM_oIrlIGeurvx7cvxzJ1H4brSQVxrW/exec';
+// Google Forms 後端系統
+// 使用 Google Forms 提交資料,用 CSV API 讀取資料
+// 設定檔請參考 forms-config.js
 
 class TravelComments {
     constructor(tripId) {
         this.tripId = tripId;
         this.cache = new Map();
+        this.hasLiked = new Set(); // 記錄已按讚的景點
     }
 
     // 載入所有景點的按讚數和留言
     async loadAll() {
         try {
-            // 使用 JSONP 繞過 CORS
-            const data = await this.fetchJSONP(`${SHEET_API_URL}?action=getAll&tripId=${this.tripId}`);
+            // 同時載入按讚數和留言
+            const [likes, comments] = await Promise.all([
+                this.loadLikesFromCSV(),
+                this.loadCommentsFromCSV()
+            ]);
             
-            // 更新快取
-            data.forEach(spot => {
+            // 整合資料
+            const spotsMap = new Map();
+            
+            // 處理按讚數
+            likes.forEach(({ spotId, count }) => {
+                if (!spotsMap.has(spotId)) {
+                    spotsMap.set(spotId, { spotId, likes: 0, comments: [] });
+                }
+                spotsMap.get(spotId).likes = count;
+            });
+            
+            // 處理留言
+            comments.forEach(({ spotId, nickname, comment, timestamp }) => {
+                if (!spotsMap.has(spotId)) {
+                    spotsMap.set(spotId, { spotId, likes: 0, comments: [] });
+                }
+                spotsMap.get(spotId).comments.push({ nickname, comment, timestamp });
+            });
+            
+            // 更新快取和 UI
+            const spots = Array.from(spotsMap.values());
+            spots.forEach(spot => {
                 this.cache.set(spot.spotId, spot);
                 this.updateUI(spot.spotId, spot);
             });
             
-            return data;
+            return spots;
         } catch (error) {
             console.error('載入資料失敗:', error);
             return [];
         }
     }
 
-    // JSONP 請求函數
-    fetchJSONP(url) {
-        return new Promise((resolve, reject) => {
-            const callbackName = 'jsonp_callback_' + Date.now();
-            const script = document.createElement('script');
-            
-            // 設定全域 callback 函數
-            window[callbackName] = (data) => {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                resolve(data);
-            };
-            
-            // 處理錯誤
-            script.onerror = () => {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                reject(new Error('JSONP request failed'));
-            };
-            
-            // 加入 callback 參數並載入腳本
-            script.src = url + '&callback=' + callbackName;
-            document.body.appendChild(script);
-        });
-    }
-
-    // 按讚
-    async addLike(spotId) {
+    // 從 Google Sheets CSV 載入按讚數
+    async loadLikesFromCSV() {
         try {
-            const response = await fetch(SHEET_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'addLike',
-                    tripId: this.tripId,
-                    spotId: spotId
-                })
+            const response = await fetch(FORMS_CONFIG.likes.csvUrl);
+            const text = await response.text();
+            const rows = this.parseCSV(text);
+            
+            // 跳過標題列,統計每個景點的按讚數
+            const likesMap = new Map();
+            rows.slice(1).forEach(row => {
+                const tripId = row[1]; // 第二欄是 tripId
+                const spotId = row[2]; // 第三欄是 spotId
+                
+                if (tripId === this.tripId) {
+                    likesMap.set(spotId, (likesMap.get(spotId) || 0) + 1);
+                }
             });
             
-            const data = await response.json();
+            return Array.from(likesMap.entries()).map(([spotId, count]) => ({
+                spotId,
+                count
+            }));
+        } catch (error) {
+            console.error('載入按讚數失敗:', error);
+            return [];
+        }
+    }
+
+    // 從 Google Sheets CSV 載入留言
+    async loadCommentsFromCSV() {
+        try {
+            const response = await fetch(FORMS_CONFIG.comments.csvUrl);
+            const text = await response.text();
+            const rows = this.parseCSV(text);
             
-            if (data.success) {
-                this.cache.set(spotId, data.data);
-                this.updateUI(spotId, data.data);
+            // 跳過標題列,篩選此行程的留言
+            const comments = [];
+            rows.slice(1).forEach(row => {
+                const tripId = row[1];    // 第二欄是 tripId
+                const spotId = row[2];    // 第三欄是 spotId
+                const nickname = row[3];  // 第四欄是 nickname
+                const comment = row[4];   // 第五欄是 comment
+                const timestamp = row[5]; // 第六欄是 timestamp
+                
+                if (tripId === this.tripId) {
+                    comments.push({ spotId, nickname, comment, timestamp });
+                }
+            });
+            
+            return comments;
+        } catch (error) {
+            console.error('載入留言失敗:', error);
+            return [];
+        }
+    }
+
+    // 解析 CSV 文字
+    parseCSV(text) {
+        const rows = [];
+        let currentRow = [];
+        let currentCell = '';
+        let insideQuotes = false;
+        
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const nextChar = text[i + 1];
+            
+            if (char === '"' && !insideQuotes) {
+                insideQuotes = true;
+            } else if (char === '"' && insideQuotes && nextChar === '"') {
+                currentCell += '"';
+                i++; // 跳過下一個引號
+            } else if (char === '"' && insideQuotes) {
+                insideQuotes = false;
+            } else if (char === ',' && !insideQuotes) {
+                currentRow.push(currentCell);
+                currentCell = '';
+            } else if ((char === '\n' || char === '\r') && !insideQuotes) {
+                if (currentCell || currentRow.length > 0) {
+                    currentRow.push(currentCell);
+                    rows.push(currentRow);
+                    currentRow = [];
+                    currentCell = '';
+                }
+                if (char === '\r' && nextChar === '\n') {
+                    i++; // 跳過 \r\n 的 \n
+                }
+            } else {
+                currentCell += char;
             }
+        }
+        
+        // 處理最後一筆資料
+        if (currentCell || currentRow.length > 0) {
+            currentRow.push(currentCell);
+            rows.push(currentRow);
+        }
+        
+        return rows;
+    }
+
+    // 新增按讚 (提交到 Google Forms)
+    async addLike(spotId) {
+        // 防止重複按讚 (簡單的前端檢查)
+        if (this.hasLiked.has(spotId)) {
+            this.showMessage(spotId, '你已經按過讚了!', 'warning');
+            return false;
+        }
+
+        try {
+            // 建立表單資料
+            const formData = new FormData();
+            formData.append(FORMS_CONFIG.likes.entries.tripId, this.tripId);
+            formData.append(FORMS_CONFIG.likes.entries.spotId, spotId);
+            formData.append(FORMS_CONFIG.likes.entries.timestamp, new Date().toISOString());
+
+            // 提交到 Google Forms
+            const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.likes.formId}/formResponse`;
             
-            return data;
+            // 使用 no-cors 模式 (無法讀取回應,但可以提交)
+            await fetch(formUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            });
+
+            // 樂觀更新 UI
+            const cached = this.cache.get(spotId) || { spotId, likes: 0, comments: [] };
+            cached.likes += 1;
+            this.cache.set(spotId, cached);
+            this.updateUI(spotId, cached);
+            this.hasLiked.add(spotId);
+            this.showMessage(spotId, '按讚成功!', 'success');
+            
+            return true;
         } catch (error) {
             console.error('按讚失敗:', error);
-            return { success: false, error: error.message };
+            this.showMessage(spotId, '按讚失敗,請稍後再試', 'error');
+            return false;
         }
     }
 
-    // 新增留言
-    async addComment(spotId, comment, nickname = '匿名') {
-        if (!comment || comment.trim() === '') {
-            return { success: false, error: '留言不能為空' };
+    // 新增留言 (提交到 Google Forms)
+    async addComment(spotId, nickname, comment) {
+        if (!nickname.trim() || !comment.trim()) {
+            this.showMessage(spotId, '請填寫暱稱和留言內容', 'warning');
+            return false;
         }
 
         try {
-            const response = await fetch(SHEET_API_URL, {
+            const timestamp = new Date().toISOString();
+
+            // 建立表單資料
+            const formData = new FormData();
+            formData.append(FORMS_CONFIG.comments.entries.tripId, this.tripId);
+            formData.append(FORMS_CONFIG.comments.entries.spotId, spotId);
+            formData.append(FORMS_CONFIG.comments.entries.nickname, nickname.trim());
+            formData.append(FORMS_CONFIG.comments.entries.comment, comment.trim());
+            formData.append(FORMS_CONFIG.comments.entries.timestamp, timestamp);
+
+            // 提交到 Google Forms
+            const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.comments.formId}/formResponse`;
+            
+            // 使用 no-cors 模式 (無法讀取回應,但可以提交)
+            await fetch(formUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'addComment',
-                    tripId: this.tripId,
-                    spotId: spotId,
-                    nickname: nickname.trim(),
-                    comment: comment.trim(),
-                    timestamp: new Date().toISOString()
-                })
+                mode: 'no-cors',
+                body: formData
             });
+
+            // 樂觀更新 UI
+            const cached = this.cache.get(spotId) || { spotId, likes: 0, comments: [] };
+            cached.comments.push({ nickname: nickname.trim(), comment: comment.trim(), timestamp });
+            this.cache.set(spotId, cached);
+            this.updateUI(spotId, cached);
+            this.showMessage(spotId, '留言成功!', 'success');
             
-            const data = await response.json();
-            
-            if (data.success) {
-                this.cache.set(spotId, data.data);
-                this.updateUI(spotId, data.data);
-            }
-            
-            return data;
+            return true;
         } catch (error) {
             console.error('留言失敗:', error);
-            return { success: false, error: error.message };
+            this.showMessage(spotId, '留言失敗,請稍後再試', 'error');
+            return false;
         }
     }
 
