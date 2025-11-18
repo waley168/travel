@@ -35,9 +35,10 @@ const urlsToCache = [
   './images/view1.jpg',
   './images/view2.jpg',
   './images/waterfall1.jpg',
+  './images/icon-192.png',
+  './images/icon-512.png',
   // 外部資源
-  'https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css',
-  'https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/fonts/materialdesignicons-webfont.woff2'
+  'https://code.iconify.design/3/3.1.0/iconify.min.js'
 ];
 
 // 安裝 Service Worker
