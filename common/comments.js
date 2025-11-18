@@ -58,16 +58,20 @@ class TravelComments {
             const text = await response.text();
             const rows = this.parseCSV(text);
             
+            console.log('按讚 CSV 資料:', rows); // 除錯用
+            
             // 跳過標題列,統計每個景點的按讚數
             const likesMap = new Map();
             rows.slice(1).forEach(row => {
                 const tripId = row[1]; // 第二欄是 tripId
                 const spotId = row[2]; // 第三欄是 spotId
                 
-                if (tripId === this.tripId) {
+                if (tripId && tripId.trim() === this.tripId) {
                     likesMap.set(spotId, (likesMap.get(spotId) || 0) + 1);
                 }
             });
+            
+            console.log('按讚統計:', likesMap); // 除錯用
             
             return Array.from(likesMap.entries()).map(([spotId, count]) => ({
                 spotId,
@@ -86,6 +90,8 @@ class TravelComments {
             const text = await response.text();
             const rows = this.parseCSV(text);
             
+            console.log('留言 CSV 資料:', rows); // 除錯用
+            
             // 跳過標題列,篩選此行程的留言
             // 欄位順序: 時間戳記 | tripId | spotId | nickname | comment
             const comments = [];
@@ -96,10 +102,12 @@ class TravelComments {
                 const nickname = row[3];  // 第四欄是 nickname
                 const comment = row[4];   // 第五欄是 comment
                 
-                if (tripId === this.tripId) {
+                if (tripId && tripId.trim() === this.tripId) {
                     comments.push({ spotId, nickname, comment, timestamp });
                 }
             });
+            
+            console.log('留言資料:', comments); // 除錯用
             
             return comments;
         } catch (error) {
@@ -271,7 +279,29 @@ class TravelComments {
 
     // 格式化時間
     formatTime(timestamp) {
-        const date = new Date(timestamp);
+        if (!timestamp) return '未知時間';
+        
+        // 處理 Google Sheets 的時間格式: "2025/11/18 下午 2:46:09"
+        let date;
+        
+        // 嘗試直接解析
+        date = new Date(timestamp);
+        
+        // 如果解析失敗,嘗試轉換格式
+        if (isNaN(date.getTime())) {
+            // 轉換 "下午/上午" 格式
+            const converted = timestamp
+                .replace('上午', 'AM')
+                .replace('下午', 'PM')
+                .replace(/\//g, '-');
+            date = new Date(converted);
+        }
+        
+        // 如果還是失敗,返回原始字串
+        if (isNaN(date.getTime())) {
+            return timestamp;
+        }
+        
         const now = new Date();
         const diff = now - date;
         
@@ -287,7 +317,9 @@ class TravelComments {
         return date.toLocaleDateString('zh-TW', { 
             year: 'numeric', 
             month: '2-digit', 
-            day: '2-digit' 
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
         });
     }
 
