@@ -73,77 +73,83 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
     installPromptDiv.classList.add('hidden');
 }
 
-// 固定日期標題功能
+// 固定日期標題的顯示邏輯
 const fixedDayHeader = document.getElementById('fixedDayHeader');
 const fixedDayTitle = document.getElementById('fixedDayTitle');
-const dayCards = document.querySelectorAll('.day-card');
+const scrollToTopBtn = document.getElementById('scrollToTop');
+let currentDay = '';
 
-// 建立日期標題映射
-const dayTitles = new Map();
-dayCards.forEach(card => {
-    const h3 = card.querySelector('h3');
-    if (h3) {
-        dayTitles.set(card, h3.textContent.trim());
-    }
-});
-
-// 滾動監聽
-let currentDayCard = null;
-let ticking = false;
-
-function updateFixedHeader() {
-    const scrollY = window.scrollY || window.pageYOffset;
-    const viewportMiddle = scrollY + window.innerHeight / 3;
-
-    let foundCard = null;
-
-    // 找出目前可見的日期卡片
-    for (const card of dayCards) {
-        const rect = card.getBoundingClientRect();
-        const cardTop = rect.top + scrollY;
-        const cardBottom = cardTop + rect.height;
-
-        if (viewportMiddle >= cardTop && viewportMiddle <= cardBottom) {
-            foundCard = card;
-            break;
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    
+    // 顯示/隱藏回到頂端按鈕
+    if (scrollToTopBtn) {
+        if (scrolled > 500) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
         }
     }
-
-    // 更新固定標題
-    if (foundCard && foundCard !== currentDayCard) {
-        currentDayCard = foundCard;
-        const title = dayTitles.get(foundCard);
-        if (title) {
-            fixedDayTitle.textContent = title;
+    
+    // 固定標題邏輯
+    const daySections = document.querySelectorAll('.day-section');
+    let activeDay = '';
+    
+    daySections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+            const dayTitle = section.querySelector('h2')?.textContent;
+            if (dayTitle) {
+                activeDay = dayTitle;
+            }
+        }
+    });
+    
+    if (activeDay && activeDay !== currentDay) {
+        currentDay = activeDay;
+        if (fixedDayTitle) {
+            fixedDayTitle.textContent = currentDay;
+        }
+        if (fixedDayHeader && scrolled > 300) {
             fixedDayHeader.classList.add('show');
-            document.body.classList.add('has-fixed-header');
         }
-    } else if (!foundCard && currentDayCard) {
-        // 離開所有日期卡片區域
-        fixedDayHeader.classList.remove('show');
-        document.body.classList.remove('has-fixed-header');
-        currentDayCard = null;
-    }
-
-    ticking = false;
-}
-
-function requestTick() {
-    if (!ticking) {
-        window.requestAnimationFrame(updateFixedHeader);
-        ticking = true;
-    }
-}
-
-// 監聽滾動事件
-window.addEventListener('scroll', requestTick, { passive: true });
-
-// 點擊固定標題滾動到對應卡片
-fixedDayTitle.addEventListener('click', () => {
-    if (currentDayCard) {
-        currentDayCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (!activeDay || scrolled <= 300) {
+        if (fixedDayHeader) {
+            fixedDayHeader.classList.remove('show');
+        }
     }
 });
 
-// 初始檢查
-setTimeout(updateFixedHeader, 500);
+// 平滑捲動到指定元素
+function smoothScrollTo(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// 回到頂端
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// 綁定行程總覽點擊事件
+document.addEventListener('DOMContentLoaded', () => {
+    const summaryDays = document.querySelectorAll('.summary-day');
+    summaryDays.forEach((day, index) => {
+        day.style.cursor = 'pointer';
+        day.addEventListener('click', () => {
+            smoothScrollTo(`day${index + 1}`);
+        });
+    });
+});

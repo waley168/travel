@@ -246,12 +246,15 @@ class TravelComments {
 
     // 更新 UI
     updateUI(spotId, data) {
-        // 更新按讚數
+        // 更新按讚按鈕 (數量整合在按鈕內)
         const likeBtn = document.querySelector(`[data-spot-id="${spotId}"] .like-btn`);
-        const likeCount = document.querySelector(`[data-spot-id="${spotId}"] .like-count`);
         
-        if (likeCount) {
-            likeCount.textContent = data.likes || 0;
+        if (likeBtn) {
+            const likes = data.likes || 0;
+            likeBtn.innerHTML = `
+                <span class="iconify" data-icon="mdi:heart" data-inline="false"></span>
+                <span>${likes} 個讚</span>
+            `;
         }
 
         // 更新留言列表 (最新的在上方)
@@ -263,8 +266,12 @@ class TravelComments {
             commentsList.innerHTML = sortedComments.map(c => `
                 <div class="comment-item">
                     <div class="comment-header">
+                        <span class="iconify" data-icon="mdi:account-circle" data-inline="false"></span>
                         <strong>${this.escapeHtml(c.nickname)}</strong>
-                        <span class="comment-time">${this.formatTime(c.timestamp)}</span>
+                        <span class="comment-time">
+                            <span class="iconify" data-icon="mdi:clock-outline" data-inline="false"></span>
+                            ${this.formatTime(c.timestamp)}
+                        </span>
                     </div>
                     <div class="comment-text">${this.escapeHtml(c.comment)}</div>
                 </div>

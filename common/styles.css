@@ -88,18 +88,17 @@
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background: var(--color-primary);
     color: white;
-    padding: 12px 20px;
-    z-index: 999;
+    padding: 15px 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
     transform: translateY(-100%);
     transition: transform 0.3s ease;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.95em;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 .fixed-day-header.show {
@@ -107,8 +106,71 @@
 }
 
 .fixed-day-header .day-title {
-    text-align: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.fixed-day-header .header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.home-btn,
+.scroll-to-top {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 20px;
+}
+
+.home-btn:hover,
+.scroll-to-top:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .home-btn,
+    .fixed-day-header .header-actions button {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
 }
 
 /* 當固定標題顯示時,為 body 加上 padding */
@@ -239,24 +301,33 @@ header h1 {
     display: inline-block;
 }
 
-#quick-summary .summary-grid {
+/* 行程總覽樣式 */
+.summary-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 18px;
+    gap: 15px;
 }
 
-#quick-summary .summary-day {
-    background: #fafafa;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 18px;
+.summary-day {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid var(--color-primary);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-#quick-summary .summary-day strong {
-    color: var(--color-secondary);
+.summary-day:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    border-left-width: 6px;
+}
+
+.summary-day strong {
+    color: var(--color-primary);
     display: block;
-    font-size: 1.15em;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 1.05em;
 }
 
 .day-card {
@@ -411,7 +482,7 @@ header h1 {
 /* 響應式設計 - 手機版 */
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 20px 0;
         font-size: 15px;
     }
 
@@ -420,7 +491,7 @@ header h1 {
     }
 
     .container {
-        padding: 0 5px;
+        padding: 0;
     }
 
     header {
