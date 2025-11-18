@@ -21,10 +21,10 @@
 6. **記錄以下資訊**:
    ```
    表單 ID: 在瀏覽器網址列找到
-   https://docs.google.com/forms/d/{FORM_ID}/edit
+   https://docs.google.com/forms/d/1JVSxrAPf-S4mB_LR_UJJXhmqnSgwe8qE8nkLnfAiyDQ/edit?pli=1
    
    試算表 ID: 開啟回應試算表,在網址列找到
-   https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/edit
+   https://docs.google.com/spreadsheets/d/1Z0rRNRZnd16Xakc3O3RXZ-tPC8Uc1TGqevygmXtkGIM/edit?resourcekey=&gid=653576896#gid=653576896
    ```
 
 ## 步驟 2: 建立「留言」表單
@@ -43,6 +43,10 @@
    - 試算表會自動產生 5 個欄位: `時間戳記` | `tripId` | `spotId` | `nickname` | `comment`
 5. **記錄表單 ID 和試算表 ID**
 
+https://docs.google.com/forms/d/1-Kbs2BeH6wjVlJ8myeIO_ZShb0GcBH3myVIC-nmLh_U/edit
+
+https://docs.google.com/spreadsheets/d/1HzjmIsvi_okItcvDsBrb37y2PMuAH41lla6bBX9bmlI/edit?resourcekey=&gid=623889909#gid=623889909
+
 ## 步驟 3: 取得表單欄位 ID
 
 每個問題都有一個隱藏的 entry ID,需要透過檢查 HTML 取得:
@@ -56,16 +60,16 @@
 
 **按讚表單的 entry IDs** (只需要 2 個):
 ```
-tripId: entry._______ (待填入)
-spotId: entry._______ (待填入)
+tripId: entry.2145170608
+spotId: entry.3814469
 ```
 
 **留言表單的 entry IDs** (需要 4 個):
 ```
-tripId: entry._______ (待填入)
-spotId: entry._______ (待填入)
-nickname: entry._______ (待填入)
-comment: entry._______ (待填入)
+tripId: entry.231456966
+spotId: entry.251970151
+nickname: entry.1682345074
+comment: entry.1573644665
 ```
 
 ⚠️ **重要**: Google Forms 自動產生的「時間戳記」不需要我們手動填寫,所以不需要 entry ID!

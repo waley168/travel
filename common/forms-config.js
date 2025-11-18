@@ -4,39 +4,39 @@
 const FORMS_CONFIG = {
     likes: {
         // 按讚表單 ID (從表單網址取得)
-        formId: 'YOUR_LIKES_FORM_ID_HERE',
+        formId: '1JVSxrAPf-S4mB_LR_UJJXhmqnSgwe8qE8nkLnfAiyDQ',
         
         // 按讚試算表 ID (從試算表網址取得)
-        sheetId: 'YOUR_LIKES_SHEET_ID_HERE',
+        sheetId: '1Z0rRNRZnd16Xakc3O3RXZ-tPC8Uc1TGqevygmXtkGIM',
         
         // 按讚試算表的 CSV 發布網址
-        csvUrl: 'YOUR_LIKES_CSV_URL_HERE',
+        csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXQVw9xDV9xQF5Z4QZ0rRNRZnd16Xakc3O3RXZ-tPC8Uc1TGqevygmXtkGIM/pub?output=csv',
         
         // 表單欄位的 entry ID (從表單 HTML 取得)
         // ⚠️ 注意: 不包含 timestamp,因為 Google Forms 會自動記錄時間戳記
         entries: {
-            tripId: 'entry.XXXXXXXX',    // 行程 ID 欄位
-            spotId: 'entry.XXXXXXXX'     // 景點 ID 欄位
+            tripId: 'entry.2145170608',    // 行程 ID 欄位
+            spotId: 'entry.3814469'        // 景點 ID 欄位
         }
     },
     
     comments: {
         // 留言表單 ID
-        formId: 'YOUR_COMMENTS_FORM_ID_HERE',
+        formId: '1-Kbs2BeH6wjVlJ8myeIO_ZShb0GcBH3myVIC-nmLh_U',
         
         // 留言試算表 ID
-        sheetId: 'YOUR_COMMENTS_SHEET_ID_HERE',
+        sheetId: '1HzjmIsvi_okItcvDsBrb37y2PMuAH41lla6bBX9bmlI',
         
         // 留言試算表的 CSV 發布網址
-        csvUrl: 'YOUR_COMMENTS_CSV_URL_HERE',
+        csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHzjmIsvi_okItcvDsBrb37y2PMuAH41lla6bBX9bmlI/pub?output=csv',
         
         // 表單欄位的 entry ID
         // ⚠️ 注意: 不包含 timestamp,因為 Google Forms 會自動記錄時間戳記
         entries: {
-            tripId: 'entry.XXXXXXXX',     // 行程 ID 欄位
-            spotId: 'entry.XXXXXXXX',     // 景點 ID 欄位
-            nickname: 'entry.XXXXXXXX',   // 暱稱欄位
-            comment: 'entry.XXXXXXXX'     // 留言內容欄位
+            tripId: 'entry.231456966',      // 行程 ID 欄位
+            spotId: 'entry.251970151',      // 景點 ID 欄位
+            nickname: 'entry.1682345074',   // 暱稱欄位
+            comment: 'entry.1573644665'     // 留言內容欄位
         }
     }
 };
