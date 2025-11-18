@@ -30,13 +30,28 @@
 
     <!-- 固定日期標題 -->
     <div class="fixed-day-header" id="fixedDayHeader">
+        <button class="home-btn" onclick="window.location.href='../'" title="回到首頁">
+            <span class="iconify" data-icon="mdi:home"></span>
+        </button>
         <div class="day-title" id="fixedDayTitle"></div>
-        <div class="header-actions">
-            <button class="home-btn" onclick="window.location.href='../'" title="回到首頁">
-                <span class="iconify" data-icon="mdi:home"></span>
+        <button class="menu-btn" id="menuBtn" title="行程選單">
+            <span class="iconify" data-icon="mdi:menu"></span>
+        </button>
+    </div>
+    
+    <!-- 行程選單面板 -->
+    <div class="day-menu" id="dayMenu">
+        <div class="day-menu-header">
+            <h3>行程總覽</h3>
+            <button class="close-btn" id="closeMenuBtn">
+                <span class="iconify" data-icon="mdi:close"></span>
             </button>
         </div>
+        <div class="day-menu-list" id="dayMenuList">
+            <!-- 自動從 summary-day 生成 -->
+        </div>
     </div>
+    <div class="day-menu-overlay" id="dayMenuOverlay"></div>
 
     <!-- 回到頂端按鈕 -->
     <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" title="回到頂端">
@@ -44,6 +59,11 @@
     </button>
 
     <div class="container">
+        <!-- 封面圖片 -->
+        <div class="cover-image" id="coverImage">
+            <!-- 可在此新增封面圖片: <img src="./images/cover.jpg" alt="濟州島封面"> -->
+        </div>
+        
         <header>
             <h1><span class="mdi mdi-airplane-takeoff mdi-inline"></span>我們的濟州島 5 天 4 夜 (達、岱臻、爸、媽)</h1>
         </header>

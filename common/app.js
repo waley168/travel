@@ -144,16 +144,104 @@ function scrollToTop() {
     });
 }
 
-// 綁定行程總覽點擊事件
+// 動態生成行程選單並綁定事件
 document.addEventListener('DOMContentLoaded', () => {
     const summaryDays = document.querySelectorAll('.summary-day');
     const dayCards = document.querySelectorAll('.day-card');
+    const dayMenuList = document.getElementById('dayMenuList');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const dayMenu = document.getElementById('dayMenu');
+    const dayMenuOverlay = document.getElementById('dayMenuOverlay');
     
+    // 綁定行程總覽點擊事件
     summaryDays.forEach((day, index) => {
         day.style.cursor = 'pointer';
         day.addEventListener('click', () => {
             if (dayCards[index]) {
                 smoothScrollTo(dayCards[index]);
+            }
+        });
+    });
+    
+    // 動態生成選單項目
+    if (dayMenuList && summaryDays.length > 0) {
+        summaryDays.forEach((summaryDay, index) => {
+            const strong = summaryDay.querySelector('strong');
+            const description = summaryDay.textContent.replace(strong?.textContent || '', '').trim();
+            
+            const menuItem = document.createElement('div');
+            menuItem.className = 'day-menu-item';
+            menuItem.innerHTML = `
+                <div class="day-icon">
+                    <span class="iconify" data-icon="mdi:calendar-blank"></span>
+                </div>
+                <div class="day-info">
+                    <strong>${strong?.textContent || `Day ${index + 1}`}</strong>
+                    <p>${description}</p>
+                </div>
+            `;
+            
+            // 點擊選單項目滑動到對應天數
+            menuItem.addEventListener('click', () => {
+                if (dayCards[index]) {
+                    smoothScrollTo(dayCards[index]);
+                    closeMenu();
+                }
+            });
+            
+            dayMenuList.appendChild(menuItem);
+        });
+    }
+    
+    // 開啟選單
+    function openMenu() {
+        if (dayMenu && dayMenuOverlay) {
+            dayMenu.classList.add('show');
+            dayMenuOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // 關閉選單
+    function closeMenu() {
+        if (dayMenu && dayMenuOverlay) {
+            dayMenu.classList.remove('show');
+            dayMenuOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // 綁定選單按鈕
+    if (menuBtn) {
+        menuBtn.addEventListener('click', openMenu);
+    }
+    
+    if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', closeMenu);
+    }
+    
+    if (dayMenuOverlay) {
+        dayMenuOverlay.addEventListener('click', closeMenu);
+    }
+    
+    // 監聽滾動更新選單中的活動項目
+    window.addEventListener('scroll', () => {
+        const menuItems = document.querySelectorAll('.day-menu-item');
+        let activeIndex = -1;
+        
+        dayCards.forEach((card, index) => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top <= 150 && rect.bottom >= 150) {
+                activeIndex = index;
+            }
+        });
+        
+        menuItems.forEach((item, index) => {
+            if (index === activeIndex) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
             }
         });
     });
