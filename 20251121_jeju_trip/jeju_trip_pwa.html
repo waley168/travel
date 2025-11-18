@@ -15,10 +15,10 @@
     <link rel="manifest" href="./manifest.json">
     
     <!-- 圖示 -->
-    <link rel="apple-touch-icon" href="./images/seongsan.jpg">
-    <link rel="icon" type="image/png" href="./images/seongsan.jpg">
+    <link rel="apple-touch-icon" href="./images/orange.png">
+    <link rel="icon" type="image/png" href="./images/orange.png">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
     <style>
         :root {
@@ -119,6 +119,40 @@
 
         .offline-indicator.show {
             display: block;
+        }
+
+        /* 固定日期標題 */
+        .fixed-day-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 12px 20px;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .fixed-day-header.show {
+            transform: translateY(0);
+        }
+
+        .fixed-day-header .day-title {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* 當固定標題顯示時,為 body 加上 padding */
+        body.has-fixed-header {
+            padding-top: 60px;
         }
 
         body {
@@ -411,49 +445,143 @@
                 font-size: 15px;
             }
 
+            body.has-fixed-header {
+                padding-top: 70px;
+            }
+
+            .container {
+                padding: 0 5px;
+            }
+
             header {
                 flex-direction: column;
                 align-items: flex-start;
+                margin-bottom: 20px;
             }
+
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            .day-card {
+                margin-bottom: 15px;
+            }
+
             .day-card summary {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
+                padding: 15px;
             }
+
             .day-card summary p {
-                font-size: 1em;
+                font-size: 0.95em;
             }
+
             .day-card h3 {
-                font-size: 1.5em;
+                font-size: 1.3em;
+            }
+
+            .day-content {
+                padding: 0 15px 15px 15px;
+            }
+
+            .day-header-img {
+                max-height: 200px;
+                margin: 10px 0;
             }
 
             .timeline-img {
                 width: 100%;
-                max-width: 280px;
+                max-width: 100%;
                 height: auto;
+                margin-top: 10px;
             }
 
-            .timeline thead { display: none; }
-            .timeline tr { display: block; margin-bottom: 18px; border: 1px solid var(--color-border); border-radius: 8px; padding: 10px; background: #fafafa; }
-            .timeline td { display: block; border: none; padding: 6px 0; text-align: left !important; }
-            .timeline td:nth-child(1) { font-size: 1.2em; color: var(--color-secondary); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--color-border); }
+            /* 手機版表格優化 */
+            .timeline {
+                font-size: 14px;
+            }
+
+            .timeline thead { 
+                display: none; 
+            }
+
+            .timeline tr { 
+                display: block; 
+                width: 100%;
+                margin-bottom: 15px; 
+                border: 1px solid var(--color-border); 
+                border-radius: 10px; 
+                padding: 12px;
+                background: linear-gradient(to bottom, #ffffff, #fafafa);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            }
+
+            .timeline td { 
+                display: block; 
+                width: 100% !important;
+                border: none; 
+                padding: 8px 0;
+                text-align: left !important;
+                word-wrap: break-word;
+            }
+
+            .timeline td:nth-child(1) { 
+                font-size: 1.3em; 
+                color: var(--color-secondary);
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid var(--color-border);
+                font-weight: 700;
+                text-align: center !important;
+            }
+
+            .timeline td:nth-child(2),
+            .timeline td:nth-child(3),
+            .timeline td:nth-child(4),
+            .timeline td:nth-child(5) {
+                padding: 6px 0;
+                line-height: 1.6;
+            }
+
             .timeline td:before {
-                font-weight: 600;
-                color: #666;
+                font-weight: 700;
+                color: var(--color-primary);
                 display: inline-block;
                 min-width: 60px;
                 font-family: -apple-system, sans-serif;
-                font-size: 0.85em;
+                font-size: 0.9em;
+                margin-right: 5px;
             }
-            .timeline td:nth-child(2):before { content: '活動: '; }
-            .timeline td:nth-child(3):before { content: '車程: '; }
-            .timeline td:nth-child(4):before { content: '停留: '; }
-            .timeline td:nth-child(5):before { content: '備註: '; }
+
+            .timeline td:nth-child(2):before { content: '📍  活動'; }
+            .timeline td:nth-child(3):before { content: '🚗  車程'; }
+            .timeline td:nth-child(4):before { content: '⏱️  停留'; }
+            .timeline td:nth-child(5):before { content: '💡  備註'; }
+
+            .timeline a {
+                word-break: break-word;
+            }
+
+            .note-orig,
+            .note-sup {
+                display: block;
+                width: 100%;
+            }
+
+            .pro-tip,
+            .warning {
+                padding: 12px;
+                margin: 15px 0;
+                font-size: 0.9em;
+            }
 
             .install-prompt {
                 flex-direction: column;
                 text-align: center;
                 margin: 10px;
+                padding: 12px;
             }
 
             .install-prompt-text {
@@ -468,10 +596,24 @@
 
             #quick-summary .summary-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            #quick-summary .summary-day {
+                padding: 12px;
             }
 
             .card {
                 padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .card h2 {
+                font-size: 1.4em;
+            }
+
+            .card li {
+                font-size: 1em;
             }
         }
 
@@ -550,6 +692,11 @@
     </style>
 </head>
 <body>
+
+    <!-- 固定日期標題 -->
+    <div class="fixed-day-header" id="fixedDayHeader">
+        <div class="day-title" id="fixedDayTitle"></div>
+    </div>
 
     <div class="container">
         <header>
@@ -1079,14 +1226,14 @@
                 <button class="close-btn" id="closePrompt">稍後</button>
             </div>
         `;
-        document.body.insertBefore(installPromptDiv, document.body.firstChild);
+        document.body.insertBefore(installPromptDiv, document.querySelector('.container'));
 
         // 離線狀態提示
         const offlineDiv = document.createElement('div');
         offlineDiv.id = 'offlineIndicator';
         offlineDiv.className = 'offline-indicator';
         offlineDiv.innerHTML = '<span class="mdi mdi-wifi-off"></span> 目前處於離線模式';
-        document.body.insertBefore(offlineDiv, document.body.firstChild);
+        document.body.insertBefore(offlineDiv, document.querySelector('.container'));
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -1127,6 +1274,81 @@
         if (window.matchMedia('(display-mode: standalone)').matches) {
             installPromptDiv.classList.add('hidden');
         }
+
+        // 固定日期標題功能
+        const fixedDayHeader = document.getElementById('fixedDayHeader');
+        const fixedDayTitle = document.getElementById('fixedDayTitle');
+        const dayCards = document.querySelectorAll('.day-card');
+
+        // 建立日期標題映射
+        const dayTitles = new Map();
+        dayCards.forEach(card => {
+            const h3 = card.querySelector('h3');
+            if (h3) {
+                dayTitles.set(card, h3.textContent.trim());
+            }
+        });
+
+        // 滾動監聽
+        let currentDayCard = null;
+        let ticking = false;
+
+        function updateFixedHeader() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const viewportMiddle = scrollY + window.innerHeight / 3;
+
+            let foundCard = null;
+
+            // 找出目前可見的日期卡片
+            for (const card of dayCards) {
+                const rect = card.getBoundingClientRect();
+                const cardTop = rect.top + scrollY;
+                const cardBottom = cardTop + rect.height;
+
+                if (viewportMiddle >= cardTop && viewportMiddle <= cardBottom) {
+                    foundCard = card;
+                    break;
+                }
+            }
+
+            // 更新固定標題
+            if (foundCard && foundCard !== currentDayCard) {
+                currentDayCard = foundCard;
+                const title = dayTitles.get(foundCard);
+                if (title) {
+                    fixedDayTitle.textContent = title;
+                    fixedDayHeader.classList.add('show');
+                    document.body.classList.add('has-fixed-header');
+                }
+            } else if (!foundCard && currentDayCard) {
+                // 離開所有日期卡片區域
+                fixedDayHeader.classList.remove('show');
+                document.body.classList.remove('has-fixed-header');
+                currentDayCard = null;
+            }
+
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateFixedHeader);
+                ticking = true;
+            }
+        }
+
+        // 監聽滾動事件
+        window.addEventListener('scroll', requestTick, { passive: true });
+
+        // 點擊固定標題滾動到對應卡片
+        fixedDayTitle.addEventListener('click', () => {
+            if (currentDayCard) {
+                currentDayCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // 初始檢查
+        setTimeout(updateFixedHeader, 500);
     </script>
 </body>
 </html>
