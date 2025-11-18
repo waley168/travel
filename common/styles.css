@@ -82,6 +82,43 @@
     display: block;
 }
 
+/* 封面圖片區域 */
+.cover-image {
+    width: calc(100% + 40px);
+    margin: -20px -20px 30px -20px;
+    max-height: 500px;
+    overflow: hidden;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    display: none;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.cover-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.95);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.cover-image:hover img {
+    filter: brightness(1);
+    transform: scale(1.02);
+}
+
+.cover-image:has(img) {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .cover-image {
+        max-height: 300px;
+        margin: -15px -15px 20px -15px;
+    }
+}
+
 /* 固定標題 */
 .fixed-day-header {
     position: fixed;
@@ -311,6 +348,11 @@
         width: 45px;
         height: 45px;
     }
+
+    .fixed-day-header {
+        padding: 8px 10px;
+        gap: 5px;
+    }
     
     .home-btn,
     .fixed-day-header .header-actions button {
@@ -394,20 +436,51 @@ body {
 }
 
 header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 15px;
+    text-align: center;
     margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--color-border);
+    padding: 35px 25px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 header h1 {
-    color: var(--color-primary);
+    color: white;
     margin: 0;
     font-size: 2.2em;
     font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+header h1 .iconify {
+    font-size: 1.2em;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 .card {
