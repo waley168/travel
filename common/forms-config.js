@@ -13,10 +13,10 @@ const FORMS_CONFIG = {
         csvUrl: 'YOUR_LIKES_CSV_URL_HERE',
         
         // 表單欄位的 entry ID (從表單 HTML 取得)
+        // ⚠️ 注意: 不包含 timestamp,因為 Google Forms 會自動記錄時間戳記
         entries: {
             tripId: 'entry.XXXXXXXX',    // 行程 ID 欄位
-            spotId: 'entry.XXXXXXXX',    // 景點 ID 欄位
-            timestamp: 'entry.XXXXXXXX'   // 時間戳記欄位
+            spotId: 'entry.XXXXXXXX'     // 景點 ID 欄位
         }
     },
     
@@ -31,12 +31,12 @@ const FORMS_CONFIG = {
         csvUrl: 'YOUR_COMMENTS_CSV_URL_HERE',
         
         // 表單欄位的 entry ID
+        // ⚠️ 注意: 不包含 timestamp,因為 Google Forms 會自動記錄時間戳記
         entries: {
             tripId: 'entry.XXXXXXXX',     // 行程 ID 欄位
             spotId: 'entry.XXXXXXXX',     // 景點 ID 欄位
             nickname: 'entry.XXXXXXXX',   // 暱稱欄位
-            comment: 'entry.XXXXXXXX',    // 留言內容欄位
-            timestamp: 'entry.XXXXXXXX'   // 時間戳記欄位
+            comment: 'entry.XXXXXXXX'     // 留言內容欄位
         }
     }
 };

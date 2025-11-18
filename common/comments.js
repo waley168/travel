@@ -87,13 +87,14 @@ class TravelComments {
             const rows = this.parseCSV(text);
             
             // 跳過標題列,篩選此行程的留言
+            // 欄位順序: 時間戳記 | tripId | spotId | nickname | comment
             const comments = [];
             rows.slice(1).forEach(row => {
+                const timestamp = row[0]; // 第一欄是 Google 自動產生的時間戳記
                 const tripId = row[1];    // 第二欄是 tripId
                 const spotId = row[2];    // 第三欄是 spotId
                 const nickname = row[3];  // 第四欄是 nickname
                 const comment = row[4];   // 第五欄是 comment
-                const timestamp = row[5]; // 第六欄是 timestamp
                 
                 if (tripId === this.tripId) {
                     comments.push({ spotId, nickname, comment, timestamp });
@@ -165,7 +166,7 @@ class TravelComments {
             const formData = new FormData();
             formData.append(FORMS_CONFIG.likes.entries.tripId, this.tripId);
             formData.append(FORMS_CONFIG.likes.entries.spotId, spotId);
-            formData.append(FORMS_CONFIG.likes.entries.timestamp, new Date().toISOString());
+            // Google Forms 會自動記錄時間戳記,不需要手動提交
 
             // 提交到 Google Forms
             const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.likes.formId}/formResponse`;
@@ -201,15 +202,13 @@ class TravelComments {
         }
 
         try {
-            const timestamp = new Date().toISOString();
-
             // 建立表單資料
             const formData = new FormData();
             formData.append(FORMS_CONFIG.comments.entries.tripId, this.tripId);
             formData.append(FORMS_CONFIG.comments.entries.spotId, spotId);
             formData.append(FORMS_CONFIG.comments.entries.nickname, nickname.trim());
             formData.append(FORMS_CONFIG.comments.entries.comment, comment.trim());
-            formData.append(FORMS_CONFIG.comments.entries.timestamp, timestamp);
+            // Google Forms 會自動記錄時間戳記,不需要手動提交
 
             // 提交到 Google Forms
             const formUrl = `https://docs.google.com/forms/d/e/${FORMS_CONFIG.comments.formId}/formResponse`;
@@ -221,7 +220,8 @@ class TravelComments {
                 body: formData
             });
 
-            // 樂觀更新 UI
+            // 樂觀更新 UI (使用當前時間作為顯示)
+            const timestamp = new Date().toISOString();
             const cached = this.cache.get(spotId) || { spotId, likes: 0, comments: [] };
             cached.comments.push({ nickname: nickname.trim(), comment: comment.trim(), timestamp });
             this.cache.set(spotId, cached);
