@@ -82,7 +82,7 @@
     transform: translateY(0) scale(0.98);
 }
 
-.install-prompt .close-btn {
+#closePrompt {
     background: rgba(255,255,255,0.2);
     color: white;
     border: 1px solid rgba(255,255,255,0.4);
@@ -96,13 +96,13 @@
     transition: all 0.2s ease;
 }
 
-.install-prompt .close-btn:hover {
+#closePrompt:hover {
     background: rgba(255,255,255,0.3);
     border-color: rgba(255,255,255,0.6);
     transform: translateY(-1px);
 }
 
-.install-prompt .close-btn:active {
+#closePrompt:active {
     transform: translateY(0) scale(0.98);
 }
 
@@ -314,11 +314,7 @@
 }
 
 .close-btn .iconify {
-    font-size: 28px;
-}
-
-.close-btn .iconify {
-    font-size: 28px;
+    font-size: 18px;
 }
 
 .close-btn:hover {
@@ -537,7 +533,7 @@ header h1 .iconify {
     box-shadow: var(--shadow);
     border: 1px solid var(--color-border);
     padding: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 80px;
 }
 
 .card h2 {
@@ -602,7 +598,7 @@ header h1 .iconify {
 }
 
 #detailed-days {
-    margin-top: 40px;
+    margin-bottom: 80px;
 }
 
 #detailed-days > h2 {
@@ -615,7 +611,6 @@ header h1 .iconify {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border-left: 5px solid var(--color-primary);
     padding-left: 20px;
     display: flex;
     align-items: center;
@@ -684,7 +679,7 @@ header h1 .iconify {
     background-color: var(--color-card-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    margin-bottom: 22px;
+    margin-bottom: 60px;
     border: 1px solid var(--color-border);
     overflow: hidden;
 }
@@ -700,23 +695,24 @@ header h1 .iconify {
     transition: background 0.2s ease;
 }
 
+.day-card summary .summary-day-title {
+    display: flex;
+    flex-direction: column;
+}
+
 .day-card summary:hover {
     background: rgba(0,0,0,0.02);
 }
 
-.day-card summary::after {
-    content: '';
+.day-card summary .chevron-icon {
     width: 28px;
     height: 28px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23D35400' d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    color: var(--color-primary);
     transition: transform 0.3s ease;
     flex-shrink: 0;
 }
 
-.day-card[open] summary::after {
+.day-card[open] summary .chevron-icon {
     transform: rotate(90deg);
 }
 
@@ -768,7 +764,7 @@ header h1 .iconify {
     font-size: 1em;
 }
 
-.pro-tip .mdi, .warning .mdi {
+.pro-tip svg, .warning svg {
     font-size: 1.4em;
     margin-top: 2px;
 }
@@ -850,7 +846,7 @@ header h1 .iconify {
 /* 響應式設計 - 手機版 */
 @media (max-width: 768px) {
     body {
-        padding: 20px 0;
+        padding: 0;
         font-size: 15px;
     }
 
@@ -877,8 +873,6 @@ header h1 .iconify {
     }
 
     .day-card summary {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 5px;
         padding: 15px;
     }
@@ -1008,7 +1002,7 @@ header h1 .iconify {
     }
 
     .install-prompt .install-btn,
-    .install-prompt .close-btn {
+    #closePrompt {
         flex: 1;
         min-width: 0;
         font-size: 12px;
@@ -1026,7 +1020,6 @@ header h1 .iconify {
 
     .card {
         padding: 15px;
-        margin-bottom: 15px;
     }
 
     .card h2 {
@@ -1060,7 +1053,6 @@ header h1 .iconify {
     .card, .day-card {
         box-shadow: none;
         border: 1px solid #999;
-        margin-bottom: 12px;
         padding: 12px;
         page-break-inside: avoid;
     }

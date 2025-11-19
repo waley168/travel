@@ -297,4 +297,102 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // ========== 瀏覽狀態記憶功能 ==========
+    
+    // 獲取當前頁面的唯一標識 (使用路徑作為 key)
+    const pageKey = window.location.pathname.replace(/\//g, '_');
+    const scrollPosKey = `scrollPos_${pageKey}`;
+    const dayCardStateKey = `dayCardState_${pageKey}`;
+    
+    // 恢復 day-card 的展開/收合狀態
+    function restoreDayCardStates() {
+        try {
+            const savedStates = localStorage.getItem(dayCardStateKey);
+            if (savedStates) {
+                const states = JSON.parse(savedStates);
+                dayCards.forEach((card, index) => {
+                    if (states[index] !== undefined) {
+                        card.open = states[index];
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('恢復 day-card 狀態失敗:', e);
+        }
+    }
+    
+    // 儲存 day-card 的展開/收合狀態
+    function saveDayCardStates() {
+        try {
+            const states = [];
+            dayCards.forEach(card => {
+                states.push(card.open);
+            });
+            localStorage.setItem(dayCardStateKey, JSON.stringify(states));
+        } catch (e) {
+            console.error('儲存 day-card 狀態失敗:', e);
+        }
+    }
+    
+    // 恢復上次瀏覽位置
+    function restoreScrollPosition() {
+        try {
+            const savedScrollPos = localStorage.getItem(scrollPosKey);
+            if (savedScrollPos) {
+                const scrollPos = parseInt(savedScrollPos, 10);
+                // 使用 setTimeout 確保頁面完全載入後再滾動
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: scrollPos,
+                        behavior: 'auto' // 使用 auto 避免動畫延遲
+                    });
+                }, 100);
+            }
+        } catch (e) {
+            console.error('恢復滾動位置失敗:', e);
+        }
+    }
+    
+    // 儲存當前滾動位置 (使用節流避免頻繁寫入)
+    let scrollSaveTimer = null;
+    function saveScrollPosition() {
+        if (scrollSaveTimer) {
+            clearTimeout(scrollSaveTimer);
+        }
+        scrollSaveTimer = setTimeout(() => {
+            try {
+                const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                localStorage.setItem(scrollPosKey, scrollPos.toString());
+            } catch (e) {
+                console.error('儲存滾動位置失敗:', e);
+            }
+        }, 500); // 500ms 節流
+    }
+    
+    // 監聽 day-card 的展開/收合事件
+    dayCards.forEach(card => {
+        card.addEventListener('toggle', saveDayCardStates);
+    });
+    
+    // 監聽滾動事件來儲存位置
+    window.addEventListener('scroll', saveScrollPosition, { passive: true });
+    
+    // 監聽頁面離開事件,確保儲存狀態
+    window.addEventListener('beforeunload', () => {
+        saveScrollPosition();
+        saveDayCardStates();
+    });
+    
+    // 頁面可見性變化時也儲存狀態
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            saveScrollPosition();
+            saveDayCardStates();
+        }
+    });
+    
+    // 頁面載入完成後恢復狀態
+    restoreDayCardStates();
+    restoreScrollPosition();
 });
