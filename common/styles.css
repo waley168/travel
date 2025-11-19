@@ -869,10 +869,6 @@ header h1 .iconify {
         font-size: 1.6em;
     }
 
-    .day-card {
-        margin-bottom: 15px;
-    }
-
     .day-card summary {
         gap: 5px;
         padding: 15px;
@@ -1017,10 +1013,6 @@ header h1 .iconify {
 
     #quick-summary .summary-day {
         padding: 12px;
-    }
-
-    .card {
-        padding: 15px;
     }
 
     .card h2 {
