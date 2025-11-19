@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeju-trip-v4';
+const CACHE_NAME = 'jeju-trip-v6';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -68,48 +68,78 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// 快取策略：先從快取讀取，如果沒有則從網路取得並快取
+// 快取策略：網路優先，失敗時使用快取 (Network First)
+// 這樣可以確保帶版本號的新文件能即時更新
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // 快取命中，回傳快取資源
-        if (response) {
+  const requestUrl = new URL(event.request.url);
+  
+  // 對於 CSS 和 JS 文件使用網路優先策略
+  const isVersionedAsset = /\.(css|js)(\?v=\d+)?$/.test(requestUrl.pathname);
+  
+  if (isVersionedAsset) {
+    // 網路優先：先嘗試從網路獲取，失敗時才用快取
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            // 更新快取
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+            return response;
+          }
           return response;
-        }
-        
-        // 複製請求
-        const fetchRequest = event.request.clone();
-        
-        return fetch(fetchRequest).then((response) => {
-          // 檢查是否為有效回應
-          if (!response || response.status !== 200) {
+        })
+        .catch(() => {
+          // 網路失敗，使用快取
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              console.log('從快取載入:', event.request.url);
+              return cachedResponse;
+            }
+            // 嘗試匹配沒有查詢參數的版本
+            const urlWithoutQuery = event.request.url.split('?')[0];
+            return caches.match(urlWithoutQuery);
+          });
+        })
+    );
+  } else {
+    // 其他資源使用快取優先策略
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          if (response) {
             return response;
           }
           
-          // 只快取 same-origin 或圖片資源
-          const shouldCache = 
-            response.type === 'basic' || 
-            response.type === 'cors' ||
-            event.request.url.includes('/images/');
+          const fetchRequest = event.request.clone();
           
-          if (shouldCache) {
-            // 複製回應
-            const responseToCache = response.clone();
+          return fetch(fetchRequest).then((response) => {
+            if (!response || response.status !== 200) {
+              return response;
+            }
             
-            caches.open(CACHE_NAME)
-              .then((cache) => {
+            const shouldCache = 
+              response.type === 'basic' || 
+              response.type === 'cors' ||
+              event.request.url.includes('/images/');
+            
+            if (shouldCache) {
+              const responseToCache = response.clone();
+              caches.open(CACHE_NAME).then((cache) => {
                 cache.put(event.request, responseToCache);
               });
-          }
-          
-          return response;
-        }).catch(err => {
-          console.log('網路請求失敗:', event.request.url, err);
-          return undefined;
-        });
-      })
-  );
+            }
+            
+            return response;
+          }).catch(err => {
+            console.log('網路請求失敗:', event.request.url, err);
+            return undefined;
+          });
+        })
+    );
+  }
 });
 
 // 更新 Service Worker 時清除舊快取

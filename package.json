@@ -1,0 +1,13 @@
+{
+  "name": "travel-pwa",
+  "version": "1.0.0",
+  "description": "旅遊 PWA 網頁應用程式",
+  "scripts": {
+    "version": "node update-version.js",
+    "predeploy": "npm run version",
+    "deploy": "npm run version && git add -A && git commit -m '更新版本號' && git push"
+  },
+  "keywords": ["travel", "pwa", "jeju"],
+  "author": "",
+  "license": "MIT"
+}
