@@ -154,6 +154,7 @@
 @media (max-width: 768px) {
     .cover-image {
         max-height: 300px;
+        border-radius: unset;
     }
 }
 
