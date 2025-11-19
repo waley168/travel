@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jeju-trip-v12';
+const CACHE_NAME = 'jeju-trip-v17';
 const urlsToCache = [
   './index.html',
   './manifest.json',

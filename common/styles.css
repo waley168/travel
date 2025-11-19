@@ -528,6 +528,180 @@ header h1 .iconify {
     50% { transform: translateY(-10px); }
 }
 
+/* 設定工具列 */
+.settings-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px 20px;
+    margin: 0 30px 20px 30px;
+    background: var(--color-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-border);
+    flex-wrap: wrap;
+}
+
+.settings-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settings-label {
+    font-size: 0.9em;
+    color: var(--color-text-light);
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.settings-btn {
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    color: var(--color-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.settings-btn:hover {
+    border-color: var(--color-primary);
+    background: rgba(211, 84, 0, 0.1);
+    transform: scale(1.05);
+}
+
+.settings-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.settings-divider {
+    width: 1px;
+    height: 30px;
+    background: var(--color-border);
+}
+
+/* 字體大小變化 */
+body.font-small {
+    font-size: 14px;
+}
+
+body.font-medium {
+    font-size: 16px;
+}
+
+body.font-large {
+    font-size: 18px;
+}
+
+/* 深色模式 */
+body.dark-mode {
+    --color-bg: #1a1a1a;
+    --color-card-bg: #2d2d2d;
+    --color-text: #e0e0e0;
+    --color-text-light: #b0b0b0;
+    --color-border: #404040;
+    --shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .fixed-day-header {
+    background: rgba(45, 45, 45, 0.98);
+    border-bottom: 1px solid #404040;
+}
+
+body.dark-mode .day-menu {
+    background: #2d2d2d;
+    border-left: 1px solid #404040;
+}
+
+body.dark-mode .day-menu-item:hover {
+    background: rgba(211, 84, 0, 0.2);
+}
+
+body.dark-mode .day-menu-item.active {
+    background: rgba(211, 84, 0, 0.25);
+    border-left-color: var(--color-primary);
+}
+
+body.dark-mode .install-prompt {
+    background: linear-gradient(135deg, #D35400, #E67E22);
+}
+
+body.dark-mode .scroll-to-top {
+    background: var(--color-primary);
+}
+
+body.dark-mode header {
+    background: linear-gradient(135deg, #b84500 0%, #c96d1f 100%);
+}
+
+body.dark-mode .settings-btn {
+    background: #1a1a1a;
+}
+
+body.dark-mode .settings-btn:hover {
+    background: rgba(211, 84, 0, 0.15);
+}
+
+body.dark-mode .summary-day {
+    background: #252525;
+}
+
+body.dark-mode .summary-day:hover {
+    background: #303030;
+    border-color: var(--color-primary);
+}
+
+body.dark-mode .day-card {
+    background: #2d2d2d;
+}
+
+body.dark-mode .day-card summary:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+body.dark-mode .timeline {
+    background: #252525;
+}
+
+body.dark-mode .timeline th {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .timeline tbody tr:hover {
+    background: rgba(211, 84, 0, 0.1);
+}
+
+body.dark-mode .pro-tip {
+    background-color: rgba(46, 160, 67, 0.15);
+    border-color: #2ea043;
+    color: #b4f1c1;
+}
+
+body.dark-mode .warning {
+    background-color: rgba(212, 167, 44, 0.15);
+    border-color: #d4a72c;
+    color: #f4dfaa;
+}
+
+body.dark-mode a {
+    color: #58a6ff;
+}
+
+body.dark-mode a:hover {
+    color: #79c0ff;
+}
+
 .card {
     background-color: var(--color-card-bg);
     border-radius: var(--border-radius);
@@ -970,6 +1144,13 @@ header h1 .iconify {
         width: 100%;
     }
 
+    /* 手機版深色模式 */
+    body.dark-mode .timeline tr {
+        background: linear-gradient(to bottom, #2d2d2d, #252525);
+        border-color: #404040;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
     .pro-tip,
     .warning {
         padding: 12px;
@@ -1006,6 +1187,22 @@ header h1 .iconify {
         padding: 8px 12px;
     }
 
+    .settings-toolbar {
+        margin: 0 15px 15px 15px;
+        padding: 12px 15px;
+        gap: 15px;
+    }
+
+    .settings-label {
+        font-size: 0.85em;
+    }
+
+    .settings-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
     #quick-summary .summary-grid {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -1032,6 +1229,16 @@ header h1 .iconify {
 
 /* 列印樣式 */
 @media print {
+    .settings-toolbar,
+    .fixed-day-header,
+    .day-menu,
+    .day-menu-overlay,
+    .scroll-to-top,
+    .install-prompt,
+    .offline-indicator {
+        display: none !important;
+    }
+
     body {
         padding: 0;
         font-family: "Noto Serif TC", serif;

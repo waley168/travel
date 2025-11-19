@@ -395,4 +395,66 @@ document.addEventListener('DOMContentLoaded', () => {
     // 頁面載入完成後恢復狀態
     restoreDayCardStates();
     restoreScrollPosition();
+    
+    // ========== 字體大小和主題切換功能 ==========
+    
+    const fontSizeSmallBtn = document.getElementById('fontSizeSmall');
+    const fontSizeMediumBtn = document.getElementById('fontSizeMedium');
+    const fontSizeLargeBtn = document.getElementById('fontSizeLarge');
+    const themeToggleBtn = document.getElementById('themeToggle');
+    
+    // 從 localStorage 讀取設定
+    const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    
+    // 應用字體大小
+    function applyFontSize(size) {
+        document.body.classList.remove('font-small', 'font-medium', 'font-large');
+        document.body.classList.add(`font-${size}`);
+        
+        // 更新按鈕狀態
+        [fontSizeSmallBtn, fontSizeMediumBtn, fontSizeLargeBtn].forEach(btn => {
+            btn?.classList.remove('active');
+        });
+        
+        if (size === 'small') fontSizeSmallBtn?.classList.add('active');
+        if (size === 'medium') fontSizeMediumBtn?.classList.add('active');
+        if (size === 'large') fontSizeLargeBtn?.classList.add('active');
+        
+        localStorage.setItem('fontSize', size);
+    }
+    
+    // 應用主題
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+            if (themeToggleBtn) {
+                themeToggleBtn.querySelector('.iconify').setAttribute('data-icon', 'mdi:white-balance-sunny');
+                themeToggleBtn.title = '切換淺色模式';
+            }
+        } else {
+            document.body.classList.remove('dark-mode');
+            if (themeToggleBtn) {
+                themeToggleBtn.querySelector('.iconify').setAttribute('data-icon', 'mdi:weather-night');
+                themeToggleBtn.title = '切換深色模式';
+            }
+        }
+        localStorage.setItem('theme', theme);
+    }
+    
+    // 初始化設定
+    applyFontSize(savedFontSize);
+    applyTheme(savedTheme);
+    
+    // 綁定字體大小按鈕
+    fontSizeSmallBtn?.addEventListener('click', () => applyFontSize('small'));
+    fontSizeMediumBtn?.addEventListener('click', () => applyFontSize('medium'));
+    fontSizeLargeBtn?.addEventListener('click', () => applyFontSize('large'));
+    
+    // 綁定主題切換按鈕
+    themeToggleBtn?.addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        applyTheme(newTheme);
+    });
 });
