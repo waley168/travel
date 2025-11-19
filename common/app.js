@@ -21,7 +21,7 @@ installPromptDiv.innerHTML = `
     </div>
     <div>
         <button class="install-btn" id="installBtn">安裝</button>
-        <button class="close-btn" id="closePrompt">稍後</button>
+        <button id="closePrompt">稍後</button>
     </div>
 `;
 document.body.insertBefore(installPromptDiv, document.querySelector('.container'));
